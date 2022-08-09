@@ -1,4 +1,4 @@
-defmodule VnptInvoice.PublishService.Configuration do
+defmodule VnptInvoice.WebServices.PublishService.Configuration do
   def get(:url) do
     :origin
     |> VnptInvoice.Configuration.get()
