@@ -1,267 +1,255 @@
 defmodule VnptInvoiceBuilder do
-  def build() do
-    """
-    <Invoices>
-      <Inv>
-    """
-    |> key("123")
-    |> Kernel.<>("\n<Invoice>")
-    |> customer_code("abc123")
-    |> customer_address("35 Nguyen Hue")
-    |> Kernel.<>("\n</Invoice>")
-    |> Kernel.<>("\n</Inv>")
-    |> Kernel.<>("\n</Invoices>")
+  def build(params) when is_map(params) do
+    "<Invoices><Inv>"
+    |> build(params)
   end
 
-  defp key(invoice, key) do
-    invoice <> "\n" <> "<key>#{key}</key>"
+  defp build(invoice, %{key: key} = params) do
+    invoice <> "<key>#{key}</key>" <> "<Invoice>"
+    |> build(params |> Map.drop([:key]))
   end
 
-  defp customer_code(invoice, code) do
-    invoice <> "\n" <> "<CusCode>#{code}</CusCode>"
+  defp build(invoice, %{customer_code: customer_code} = params) do
+    invoice <> "<CusCode>#{customer_code}</CusCode>"
+    |> build(params |> Map.drop([:customer_code]))
   end
 
-  defp customer_address(invoice, address) do
-    invoice <> "\n" <> "<CusAddress>#{address}</CusAddress>"
+  defp build(invoice, %{customer_address: customer_address} = params) do
+    invoice <> "<CusAddress>#{customer_address}</CusAddress>"
+    |> build(params |> Map.drop([:customer_address]))
   end
 
-  defp customer_phone(invoice, phone) do
-    invoice <> "\n" <> "<CusPhone>#{phone}</CusPhone>"
+  defp build(invoice, %{customer_phone: customer_phone} = params) do
+    invoice <> "<CusPhone>#{customer_phone}</CusPhone>"
+    |> build(params |> Map.drop([:customer_phone]))
   end
 
-  defp customer_tax_code(invoice, code) do
-    invoice <> "\n" <> "<CusTaxCode>#{code}</CusTaxCode>"
+  defp build(invoice, %{customer_tax_code: customer_tax_code} = params) do
+    invoice <> "<CusTaxCode>#{customer_tax_code}</CusTaxCode>"
+    |> build(params |> Map.drop([:customer_tax_code]))
   end
 
-  defp payment_method(invoice, method) do
-    invoice <> "\n" <> "<PaymentMethod>#{method}</PaymentMethod>"
+  defp build(invoice, %{payment_method: payment_method} = params) do
+    invoice <> "<PaymentMethod>#{payment_method}</PaymentMethod>"
+    |> build(params |> Map.drop([:payment_method]))
   end
 
-  defp kind_of_service(invoice, kind) do
-    invoice <> "\n" <> "<KindOfService>#{kind}</KindOfService>"
+  defp build(invoice, %{kind_of_service: kind_of_service} = params) do
+    invoice <> "<KindOfService>#{kind_of_service}</KindOfService>"
+    |> build(params |> Map.drop([:kind_of_service]))
   end
 
-  defp product_name(invoice, name) do
-    invoice <> "\n" <> "<ProdName>#{name}</ProdName>"
+  defp build(invoice, %{total: total} = params) do
+    invoice <> "<Total>#{total}</Total>"
+    |> build(params |> Map.drop([:total]))
   end
 
-  defp product_unit(invoice, unit) do
-    invoice <> "\n" <> "<ProdUnit>#{unit}</ProdUnit>"
+  defp build(invoice, %{discount_amount: discount_amount} = params) do
+    invoice <> "<DiscountAmount>#{discount_amount}</DiscountAmount>"
+    |> build(params |> Map.drop([:discount_amount]))
   end
 
-  defp product_quantity(invoice, quantity) do
-    invoice <> "\n" <> "<ProdQuantity>#{quantity}</ProdQuantity>"
+  defp build(invoice, %{vat_rate: vat_rate} = params) do
+    invoice <> "<VATRate>#{vat_rate}</VATRate>"
+    |> build(params |> Map.drop([:vat_rate]))
   end
 
-  defp product_price(invoice, price) do
-    invoice <> "\n" <> "<ProdPrice>#{price}</ProdPrice>"
+  defp build(invoice, %{vat_amount: vat_amount} = params) do
+    invoice <> "<VATAmount>#{vat_amount}</VATAmount>"
+    |> build(params |> Map.drop([:vat_amount]))
   end
 
-  defp product_amount(invoice, amount) do
-    invoice <> "\n" <> "<Amount>#{amount}</Amount>"
+  defp build(invoice, %{amount: amount} = params) do
+    invoice <> "<Amount>#{amount}</Amount>"
+    |> build(params |> Map.drop([:amount]))
   end
 
-  defp product_remark(invoice, remark) do
-    invoice <> "\n" <> "<Remark>#{remark}</Remark>"
+  defp build(invoice, %{amount_in_words: amount_in_words} = params) do
+    invoice <> "<AmountInWords>#{amount_in_words}</AmountInWords>"
+    |> build(params |> Map.drop([:amount_in_words]))
   end
 
-  defp product_total(invoice, total) do
-    invoice <> "\n" <> "<Total>#{total}</Total>"
+  defp build(invoice, %{extra: extra} = params) do
+    invoice <> "<Extra>#{extra}</Extra>"
+    |> build(params |> Map.drop([:extra]))
   end
 
-  defp product_vat_rate(invoice, rate) do
-    invoice <> "\n" <> "<VATRate>#{rate}</VATRate>"
+  defp build(invoice, %{arising_date: arising_date} = params) do
+    invoice <> "<Extra>#{arising_date}</Extra>"
+    |> build(params |> Map.drop([:arising_date]))
   end
 
-  defp product_vat_amount(invoice, amount) do
-    invoice <> "\n" <> "<VATAmount>#{amount}</VATAmount>"
+  defp build(invoice, %{payment_status: payment_status} = params) do
+    invoice <> "<PaymentStatus>#{payment_status}</PaymentStatus>"
+    |> build(params |> Map.drop([:payment_status]))
   end
 
-  defp product_extra_1(invoice, extra) do
-    invoice <> "\n" <> "<Extra1>#{extra}</Extra1>"
+  defp build(invoice, %{email_deliver: email_deliver} = params) do
+    invoice <> "<EmailDeliver>#{email_deliver}</EmailDeliver>"
+    |> build(params |> Map.drop([:email_deliver]))
   end
 
-  defp product_extra_2(invoice, extra) do
-    invoice <> "\n" <> "<Extra2>#{extra}</Extra2>"
+  defp build(invoice, %{company_name: company_name} = params) do
+    invoice <> "<ComName>#{company_name}</ComName>"
+    |> build(params |> Map.drop([:company_name]))
   end
 
-  defp product_discount(invoice, discount) do
-    invoice <> "\n" <> "<Discount>#{discount}</Discount>"
+  defp build(invoice, %{company_address: company_address} = params) do
+    invoice <> "<ComAddress>#{company_address}</ComAddress>"
+    |> build(params |> Map.drop([:company_address]))
   end
 
-  defp product_discount_amount(invoice, amount) do
-    invoice <> "\n" <> "<DiscountAmount>#{amount}</DiscountAmount>"
+  defp build(invoice, %{company_tax_code: company_tax_code} = params) do
+    invoice <> "<ComTaxCode>#{company_tax_code}</ComTaxCode>"
+    |> build(params |> Map.drop([:company_tax_code]))
   end
 
-  defp product_is_sum(invoice, sum) do
-    invoice <> "\n" <> "<IsSum>#{sum}</IsSum>"
+  defp build(invoice, %{company_fax: company_fax} = params) do
+    invoice <> "<ComFax>#{company_fax}</ComFax>"
+    |> build(params |> Map.drop([:company_fax]))
   end
 
-  defp total(invoice, total) do
-    invoice <> "\n" <> "<Total>#{total}</Total>"
+  defp build(invoice, %{resource_code: resource_code} = params) do
+    invoice <> "<ResourceCode>#{resource_code}</ResourceCode>"
+    |> build(params |> Map.drop([:resource_code]))
   end
 
-  defp discount_amount(invoice, amount) do
-    invoice <> "\n" <> "<DiscountAmount>#{amount}</DiscountAmount>"
+  defp build(invoice, %{gross_value_0: gross_value_0} = params) do
+    invoice <> "<GrossValue0>#{gross_value_0}</GrossValue0>"
+    |> build(params |> Map.drop([:gross_value_0]))
   end
 
-  defp vat_rate(invoice, rate) do
-    invoice <> "\n" <> "<VATRate>#{rate}</VATRate>"
+  defp build(invoice, %{vat_amount_0: vat_amount_0} = params) do
+    invoice <> "<VatAmount0>#{vat_amount_0}</VatAmount0>"
+    |> build(params |> Map.drop([:vat_amount_0]))
   end
 
-  defp vat_amount(invoice, amount) do
-    invoice <> "\n" <> "<VATAmount>#{amount}</VATAmount>"
+  defp build(invoice, %{gross_value_5: gross_value_5} = params) do
+    invoice <> "<GrossValue5>#{gross_value_5}</GrossValue5>"
+    |> build(params |> Map.drop([:gross_value_5]))
   end
 
-  defp amount(invoice, amount) do
-    invoice <> "\n" <> "<Amount>#{amount}</Amount>"
+  defp build(invoice, %{vat_amount_5: vat_amount_5} = params) do
+    invoice <> "<VatAmount5>#{vat_amount_5}</VatAmount5>"
+    |> build(params |> Map.drop([:vat_amount_5]))
   end
 
-  defp amount_in_words(invoice, words) do
-    invoice <> "\n" <> "<AmountInWords>#{words}</AmountInWords>"
+  defp build(invoice, %{gross_value_10: gross_value_10} = params) do
+    invoice <> "<GrossValue10>#{gross_value_10}</GrossValue10>"
+    |> build(params |> Map.drop([:gross_value_10]))
   end
 
-  defp extra(invoice, extra) do
-    invoice <> "\n" <> "<Extra>#{extra}</Extra>"
+  defp build(invoice, %{vat_amount_10: vat_amount_10} = params) do
+    invoice <> "<VatAmount10>#{vat_amount_10}</VatAmount10>"
+    |> build(params |> Map.drop([:vat_amount_10]))
   end
 
-  defp arising_date(invoice, date) do
-    invoice <> "\n" <> "<ArisingDate>#{date}</ArisingDate>"
+  defp build(invoice, %{buyer: buyer} = params) do
+    invoice <> "<Buyer>#{buyer}</Buyer>"
+    |> build(params |> Map.drop([:buyer]))
   end
 
-  defp payment_status(invoice, status) do
-    invoice <> "\n" <> "<PaymentStatus>#{status}</PaymentStatus>"
+  defp build(invoice, %{name: name} = params) do
+    invoice <> "<Name>#{name}</Name>"
+    |> build(params |> Map.drop([:name]))
   end
 
-  defp email_deliver(invoice, email) do
-    invoice <> "\n" <> "<EmailDeliver>#{email}</EmailDeliver>"
+  defp build(invoice, %{company_phone: company_phone} = params) do
+    invoice <> "<ComPhone>#{company_phone}</ComPhone>"
+    |> build(params |> Map.drop([:company_phone]))
   end
 
-  defp company_name(invoice, name) do
-    invoice <> "\n" <> "<ComName>#{name}</ComName>"
+  defp build(invoice, %{company_bank_name: company_bank_name} = params) do
+    invoice <> "<ComBankName>#{company_bank_name}</ComBankName>"
+    |> build(params |> Map.drop([:company_bank_name]))
   end
 
-  defp company_address(invoice, address) do
-    invoice <> "\n" <> "<ComAddress>#{address}</ComAddress>"
+  defp build(invoice, %{company_bank_no: company_bank_no} = params) do
+    invoice <> "<ComBankNo>#{company_bank_no}</ComBankNo>"
+    |> build(params |> Map.drop([:company_bank_no]))
   end
 
-  defp company_tax_code(invoice, code) do
-    invoice <> "\n" <> "<ComTaxCode>#{code}</ComTaxCode>"
+  defp build(invoice, %{gross_value: gross_value} = params) do
+    invoice <> "<GrossValue>#{gross_value}</GrossValue>"
+    |> build(params |> Map.drop([:gross_value]))
   end
 
-  defp company_fax(invoice, fax) do
-    invoice <> "\n" <> "<ComFax>#{fax}</ComFax>"
+  defp build(invoice, %{create_date: create_date} = params) do
+    invoice <> "<CreateDate>#{create_date}</CreateDate>"
+    |> build(params |> Map.drop([:create_date]))
   end
 
-  defp resource_code(invoice, code) do
-    invoice <> "\n" <> "<ResourceCode>#{code}</ResourceCode>"
+  defp build(invoice, %{discount_rate: discount_rate} = params) do
+    invoice <> "<DiscountRate>#{discount_rate}</DiscountRate>"
+    |> build(params |> Map.drop([:discount_rate]))
   end
 
-  defp gross_value_0(invoice, value) do
-    invoice <> "\n" <> "<GrossValue0>#{value}</GrossValue0>"
+  defp build(invoice, %{customer_status: customer_status} = params) do
+    invoice <> "<CusSignStatus>#{customer_status}</CusSignStatus>"
+    |> build(params |> Map.drop([:customer_status]))
   end
 
-  defp vat_amount_5(invoice, amount) do
-    invoice <> "\n" <> "<VatAmount5>#{amount}</VatAmount5>"
+  defp build(invoice, %{create_by: create_by} = params) do
+    invoice <> "<CreateBy>#{create_by}</CreateBy>"
+    |> build(params |> Map.drop([:create_by]))
   end
 
-  defp gross_value_5(invoice, value) do
-    invoice <> "\n" <> "<GrossValue5>#{value}</GrossValue5>"
+  defp build(invoice, %{publish_by: publish_by} = params) do
+    invoice <> "<PublishBy>#{publish_by}</PublishBy>"
+    |> build(params |> Map.drop([:publish_by]))
   end
 
-  defp vat_amount_5(invoice, amount) do
-    invoice <> "\n" <> "<VatAmount5>#{amount}</VatAmount5>"
+  defp build(invoice, %{note: note} = params) do
+    invoice <> "<Note>#{note}</Note>"
+    |> build(params |> Map.drop([:note]))
   end
 
-  defp gross_value_10(invoice, value) do
-    invoice <> "\n" <> "<GrossValue10>#{value}</GrossValue10>"
+  defp build(invoice, %{process_invoice_note: process_invoice_note} = params) do
+    invoice <> "<ProcessInvNote>#{process_invoice_note}</ProcessInvNote>"
+    |> build(params |> Map.drop([:process_invoice_note]))
   end
 
-  defp vat_amount_0(invoice, amount) do
-    invoice <> "\n" <> "<VatAmount10>#{amount}</VatAmount10>"
+  defp build(invoice, %{fkey: fkey} = params) do
+    invoice <> "<Fkey>#{fkey}</Fkey>"
+    |> build(params |> Map.drop([:fkey]))
   end
 
-  defp buyer(invoice, buyer) do
-    invoice <> "\n" <> "<Buyer>#{buyer}</Buyer>"
+  defp build(invoice, %{gross_value_non_tax: gross_value_non_tax} = params) do
+    invoice <> "<GrossValue_NonTax>#{gross_value_non_tax}</GrossValue_NonTax>"
+    |> build(params |> Map.drop([:gross_value_non_tax]))
   end
 
-  defp name(invoice, invoice_name) do
-    invoice <> "\n" <> "<Name>#{invoice_name}</Name>"
+  defp build(invoice, %{currency_unit: currency_unit} = params) do
+    invoice <> "<CurrencyUnit>#{currency_unit}</CurrencyUnit>"
+    |> build(params |> Map.drop([:currency_unit]))
   end
 
-  defp company_phone(invoice, phone) do
-    invoice <> "\n" <> "<ComPhone>#{phone}</ComPhone>"
+  defp build(invoice, %{exchange_rate: exchange_rate} = params) do
+    invoice <> "<ExchangeRate>#{exchange_rate}</ExchangeRate>"
+    |> build(params |> Map.drop([:exchange_rate]))
   end
 
-  defp company_bank_name(invoice, name) do
-    invoice <> "\n" <> "<ComBankName>#{name}</ComBankName>"
+  defp build(invoice, %{converted_amount: converted_amount} = params) do
+    invoice <> "<ConvertedAmount>#{converted_amount}</ConvertedAmount>"
+    |> build(params |> Map.drop([:converted_amount]))
   end
 
-  defp company_bank_no(invoice, bank_account) do
-    invoice <> "\n" <> "<ComBankNo>#{bank_account}</ComBankNo>"
+  defp build(invoice, %{extra_1: extra_1} = params) do
+    invoice <> "<Extra1>#{extra_1}</Extra1>"
+    |> build(params |> Map.drop([:extra_1]))
   end
 
-  defp gross_value(invoice, value) do
-    invoice <> "\n" <> "<GrossValue>#{value}</GrossValue>"
+  defp build(invoice, %{extra_2: extra_2} = params) do
+    invoice <> "<Extra2>#{extra_2}</Extra2>"
+    |> build(params |> Map.drop([:extra_2]))
   end
 
-  defp create_date(invoice, date) do
-    invoice <> "\n" <> "<CreateDate>#{date}</CreateDate>"
+  defp build(invoice, %{sms_deliver: sms_deliver} = params) do
+    invoice <> "<SMSDeliver>#{sms_deliver}</SMSDeliver>"
+    |> build(params |> Map.drop([:sms_deliver]))
   end
 
-  defp discount_rate(invoice, rate) do
-    invoice <> "\n" <> "<DiscountRate>#{rate}</DiscountRate>"
-  end
-
-  defp customer_status(invoice, status) do
-    invoice <> "\n" <> "<CusSignStatus>#{status}</CusSignStatus>"
-  end
-
-  defp create_by(invoice, by) do
-    invoice <> "\n" <> "<CreateBy>#{by}</CreateBy>"
-  end
-
-  defp publish_by(invoice, by) do
-    invoice <> "\n" <> "<PublishBy>#{by}</PublishBy>"
-  end
-
-  defp note(invoice, note) do
-    invoice <> "\n" <> "<Note>#{note}</Note>"
-  end
-
-  defp process_invoice_note(invoice, note) do
-    invoice <> "\n" <> "<ProcessInvNote>#{note}</ProcessInvNote>"
-  end
-
-  defp fkey(invoice, fkey) do
-    invoice <> "\n" <> "<Fkey>#{fkey}</Fkey>"
-  end
-
-  defp gross_value_non_tax(invoice, value) do
-    invoice <> "\n" <> "<GrossValue_NonTax>#{value}</GrossValue_NonTax>"
-  end
-
-  defp currency_unit(invoice, unit) do
-    invoice <> "\n" <> "<CurrencyUnit>#{unit}</CurrencyUnit>"
-  end
-
-  defp exchange_rate(invoice, rate) do
-    invoice <> "\n" <> "<ExchangeRate>#{rate}</ExchangeRate>"
-  end
-
-  defp converted_amount(invoice, amount) do
-    invoice <> "\n" <> "<ConvertedAmount>#{amount}</ConvertedAmount>"
-  end
-
-  defp extra_1(invoice, extra) do
-    invoice <> "\n" <> "<Extra1>#{extra}</Extra1>"
-  end
-
-  defp extra_2(invoice, extra) do
-    invoice <> "\n" <> "<Extra2>#{extra}</Extra2>"
-  end
-
-  defp sms_deliver(invoice, sms) do
-    invoice <> "\n" <> "<SMSDeliver>#{sms}</SMSDeliver>"
+  defp build(invoice, %{}) do
+    invoice <> "</Invoice></Inv></Invoices>"
   end
 end
