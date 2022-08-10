@@ -14,6 +14,11 @@ defmodule VnptInvoiceBuilder do
     |> build(params |> Map.drop([:customer_code]))
   end
 
+  defp build(invoice, %{customer_name: customer_name} = params) do
+    invoice <> "<CusName>#{customer_name}</CusName>"
+    |> build(params |> Map.drop([:customer_name]))
+  end
+
   defp build(invoice, %{customer_address: customer_address} = params) do
     invoice <> "<CusAddress>#{customer_address}</CusAddress>"
     |> build(params |> Map.drop([:customer_address]))
