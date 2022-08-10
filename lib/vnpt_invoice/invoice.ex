@@ -54,4 +54,10 @@ defmodule VnptInvoice.Invoice do
     field :extra_2, String.t(), default: ""
     field :sms_deliver, String.t(), default: ""
   end
+
+  def to_xml(invoice, products) when is_list(products) do
+    invoice
+    |> VnptInvoiceBuilder.build(products)
+    |> IO.inspect()
+  end
 end

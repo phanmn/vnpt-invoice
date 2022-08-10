@@ -1,260 +1,260 @@
 defmodule VnptInvoiceBuilder do
-  def build(params) when is_map(params) do
+  def build(invoice_struct, products_struct) when is_map(invoice_struct) and is_list(products_struct) do
     "<Invoices><Inv>"
-    |> build(params)
+    |> build(invoice_struct)
   end
 
-  defp build(invoice, %{key: key} = params) do
+  defp build(invoice, %{key: key} = invoice_struct, products_struct) do
     invoice <> "<key>#{key}</key>" <> "<Invoice>"
-    |> build(params |> Map.drop([:key]))
+    |> build(invoice_struct |> Map.drop([:key]), products_struct)
   end
 
-  defp build(invoice, %{customer_code: customer_code} = params) do
+  defp build(invoice, %{customer_code: customer_code} = invoice_struct, products_struct) do
     invoice <> "<CusCode>#{customer_code}</CusCode>"
-    |> build(params |> Map.drop([:customer_code]))
+    |> build(invoice_struct |> Map.drop([:customer_code]), products_struct)
   end
 
-  defp build(invoice, %{customer_name: customer_name} = params) do
+  defp build(invoice, %{customer_name: customer_name} = invoice_struct, products_struct) do
     invoice <> "<CusName>#{customer_name}</CusName>"
-    |> build(params |> Map.drop([:customer_name]))
+    |> build(invoice_struct |> Map.drop([:customer_name]), products_struct)
   end
 
-  defp build(invoice, %{customer_address: customer_address} = params) do
+  defp build(invoice, %{customer_address: customer_address} = invoice_struct, products_struct) do
     invoice <> "<CusAddress>#{customer_address}</CusAddress>"
-    |> build(params |> Map.drop([:customer_address]))
+    |> build(invoice_struct |> Map.drop([:customer_address]), products_struct)
   end
 
-  defp build(invoice, %{customer_phone: customer_phone} = params) do
+  defp build(invoice, %{customer_phone: customer_phone} = invoice_struct, products_struct) do
     invoice <> "<CusPhone>#{customer_phone}</CusPhone>"
-    |> build(params |> Map.drop([:customer_phone]))
+    |> build(invoice_struct |> Map.drop([:customer_phone]), products_struct)
   end
 
-  defp build(invoice, %{customer_tax_code: customer_tax_code} = params) do
+  defp build(invoice, %{customer_tax_code: customer_tax_code} = invoice_struct, products_struct) do
     invoice <> "<CusTaxCode>#{customer_tax_code}</CusTaxCode>"
-    |> build(params |> Map.drop([:customer_tax_code]))
+    |> build(invoice_struct |> Map.drop([:customer_tax_code]), products_struct)
   end
 
-  defp build(invoice, %{payment_method: payment_method} = params) do
+  defp build(invoice, %{payment_method: payment_method} = invoice_struct, products_struct) do
     invoice <> "<PaymentMethod>#{payment_method}</PaymentMethod>"
-    |> build(params |> Map.drop([:payment_method]))
+    |> build(invoice_struct |> Map.drop([:payment_method]), products_struct)
   end
 
-  defp build(invoice, %{kind_of_service: kind_of_service} = params) do
+  defp build(invoice, %{kind_of_service: kind_of_service} = invoice_struct, products_struct) do
     invoice <> "<KindOfService>#{kind_of_service}</KindOfService>"
-    |> build(params |> Map.drop([:kind_of_service]))
+    |> build(invoice_struct |> Map.drop([:kind_of_service]), products_struct)
   end
 
-  defp build(invoice, %{total: total} = params) do
+  defp build(invoice, %{total: total} = invoice_struct, products_struct) do
     invoice <> "<Total>#{total}</Total>"
-    |> build(params |> Map.drop([:total]))
+    |> build(invoice_struct |> Map.drop([:total]), products_struct)
   end
 
-  defp build(invoice, %{discount_amount: discount_amount} = params) do
+  defp build(invoice, %{discount_amount: discount_amount} = invoice_struct, products_struct) do
     invoice <> "<DiscountAmount>#{discount_amount}</DiscountAmount>"
-    |> build(params |> Map.drop([:discount_amount]))
+    |> build(invoice_struct |> Map.drop([:discount_amount]), products_struct)
   end
 
-  defp build(invoice, %{vat_rate: vat_rate} = params) do
+  defp build(invoice, %{vat_rate: vat_rate} = invoice_struct, products_struct) do
     invoice <> "<VATRate>#{vat_rate}</VATRate>"
-    |> build(params |> Map.drop([:vat_rate]))
+    |> build(invoice_struct |> Map.drop([:vat_rate]), products_struct)
   end
 
-  defp build(invoice, %{vat_amount: vat_amount} = params) do
+  defp build(invoice, %{vat_amount: vat_amount} = invoice_struct, products_struct) do
     invoice <> "<VATAmount>#{vat_amount}</VATAmount>"
-    |> build(params |> Map.drop([:vat_amount]))
+    |> build(invoice_struct |> Map.drop([:vat_amount]), products_struct)
   end
 
-  defp build(invoice, %{amount: amount} = params) do
+  defp build(invoice, %{amount: amount} = invoice_struct, products_struct) do
     invoice <> "<Amount>#{amount}</Amount>"
-    |> build(params |> Map.drop([:amount]))
+    |> build(invoice_struct |> Map.drop([:amount]), products_struct)
   end
 
-  defp build(invoice, %{amount_in_words: amount_in_words} = params) do
+  defp build(invoice, %{amount_in_words: amount_in_words} = invoice_struct, products_struct) do
     invoice <> "<AmountInWords>#{amount_in_words}</AmountInWords>"
-    |> build(params |> Map.drop([:amount_in_words]))
+    |> build(invoice_struct |> Map.drop([:amount_in_words]), products_struct)
   end
 
-  defp build(invoice, %{extra: extra} = params) do
+  defp build(invoice, %{extra: extra} = invoice_struct, products_struct) do
     invoice <> "<Extra>#{extra}</Extra>"
-    |> build(params |> Map.drop([:extra]))
+    |> build(invoice_struct |> Map.drop([:extra]), products_struct)
   end
 
-  defp build(invoice, %{arising_date: arising_date} = params) do
+  defp build(invoice, %{arising_date: arising_date} = invoice_struct, products_struct) do
     invoice <> "<Extra>#{arising_date}</Extra>"
-    |> build(params |> Map.drop([:arising_date]))
+    |> build(invoice_struct |> Map.drop([:arising_date]), products_struct)
   end
 
-  defp build(invoice, %{payment_status: payment_status} = params) do
+  defp build(invoice, %{payment_status: payment_status} = invoice_struct, products_struct) do
     invoice <> "<PaymentStatus>#{payment_status}</PaymentStatus>"
-    |> build(params |> Map.drop([:payment_status]))
+    |> build(invoice_struct |> Map.drop([:payment_status]), products_struct)
   end
 
-  defp build(invoice, %{email_deliver: email_deliver} = params) do
+  defp build(invoice, %{email_deliver: email_deliver} = invoice_struct, products_struct) do
     invoice <> "<EmailDeliver>#{email_deliver}</EmailDeliver>"
-    |> build(params |> Map.drop([:email_deliver]))
+    |> build(invoice_struct |> Map.drop([:email_deliver]), products_struct)
   end
 
-  defp build(invoice, %{company_name: company_name} = params) do
+  defp build(invoice, %{company_name: company_name} = invoice_struct, products_struct) do
     invoice <> "<ComName>#{company_name}</ComName>"
-    |> build(params |> Map.drop([:company_name]))
+    |> build(invoice_struct |> Map.drop([:company_name]), products_struct)
   end
 
-  defp build(invoice, %{company_address: company_address} = params) do
+  defp build(invoice, %{company_address: company_address} = invoice_struct, products_struct) do
     invoice <> "<ComAddress>#{company_address}</ComAddress>"
-    |> build(params |> Map.drop([:company_address]))
+    |> build(invoice_struct |> Map.drop([:company_address]), products_struct)
   end
 
-  defp build(invoice, %{company_tax_code: company_tax_code} = params) do
+  defp build(invoice, %{company_tax_code: company_tax_code} = invoice_struct, products_struct) do
     invoice <> "<ComTaxCode>#{company_tax_code}</ComTaxCode>"
-    |> build(params |> Map.drop([:company_tax_code]))
+    |> build(invoice_struct |> Map.drop([:company_tax_code]), products_struct)
   end
 
-  defp build(invoice, %{company_fax: company_fax} = params) do
+  defp build(invoice, %{company_fax: company_fax} = invoice_struct, products_struct) do
     invoice <> "<ComFax>#{company_fax}</ComFax>"
-    |> build(params |> Map.drop([:company_fax]))
+    |> build(invoice_struct |> Map.drop([:company_fax]), products_struct)
   end
 
-  defp build(invoice, %{resource_code: resource_code} = params) do
+  defp build(invoice, %{resource_code: resource_code} = invoice_struct, products_struct) do
     invoice <> "<ResourceCode>#{resource_code}</ResourceCode>"
-    |> build(params |> Map.drop([:resource_code]))
+    |> build(invoice_struct |> Map.drop([:resource_code]), products_struct)
   end
 
-  defp build(invoice, %{gross_value_0: gross_value_0} = params) do
+  defp build(invoice, %{gross_value_0: gross_value_0} = invoice_struct, products_struct) do
     invoice <> "<GrossValue0>#{gross_value_0}</GrossValue0>"
-    |> build(params |> Map.drop([:gross_value_0]))
+    |> build(invoice_struct |> Map.drop([:gross_value_0]), products_struct)
   end
 
-  defp build(invoice, %{vat_amount_0: vat_amount_0} = params) do
+  defp build(invoice, %{vat_amount_0: vat_amount_0} = invoice_struct, products_struct) do
     invoice <> "<VatAmount0>#{vat_amount_0}</VatAmount0>"
-    |> build(params |> Map.drop([:vat_amount_0]))
+    |> build(invoice_struct |> Map.drop([:vat_amount_0]), products_struct)
   end
 
-  defp build(invoice, %{gross_value_5: gross_value_5} = params) do
+  defp build(invoice, %{gross_value_5: gross_value_5} = invoice_struct, products_struct) do
     invoice <> "<GrossValue5>#{gross_value_5}</GrossValue5>"
-    |> build(params |> Map.drop([:gross_value_5]))
+    |> build(invoice_struct |> Map.drop([:gross_value_5]), products_struct)
   end
 
-  defp build(invoice, %{vat_amount_5: vat_amount_5} = params) do
+  defp build(invoice, %{vat_amount_5: vat_amount_5} = invoice_struct, products_struct) do
     invoice <> "<VatAmount5>#{vat_amount_5}</VatAmount5>"
-    |> build(params |> Map.drop([:vat_amount_5]))
+    |> build(invoice_struct |> Map.drop([:vat_amount_5]), products_struct)
   end
 
-  defp build(invoice, %{gross_value_10: gross_value_10} = params) do
+  defp build(invoice, %{gross_value_10: gross_value_10} = invoice_struct, products_struct) do
     invoice <> "<GrossValue10>#{gross_value_10}</GrossValue10>"
-    |> build(params |> Map.drop([:gross_value_10]))
+    |> build(invoice_struct |> Map.drop([:gross_value_10]), products_struct)
   end
 
-  defp build(invoice, %{vat_amount_10: vat_amount_10} = params) do
+  defp build(invoice, %{vat_amount_10: vat_amount_10} = invoice_struct, products_struct) do
     invoice <> "<VatAmount10>#{vat_amount_10}</VatAmount10>"
-    |> build(params |> Map.drop([:vat_amount_10]))
+    |> build(invoice_struct |> Map.drop([:vat_amount_10]), products_struct)
   end
 
-  defp build(invoice, %{buyer: buyer} = params) do
+  defp build(invoice, %{buyer: buyer} = invoice_struct, products_struct) do
     invoice <> "<Buyer>#{buyer}</Buyer>"
-    |> build(params |> Map.drop([:buyer]))
+    |> build(invoice_struct |> Map.drop([:buyer]), products_struct)
   end
 
-  defp build(invoice, %{name: name} = params) do
+  defp build(invoice, %{name: name} = invoice_struct, products_struct) do
     invoice <> "<Name>#{name}</Name>"
-    |> build(params |> Map.drop([:name]))
+    |> build(invoice_struct |> Map.drop([:name]), products_struct)
   end
 
-  defp build(invoice, %{company_phone: company_phone} = params) do
+  defp build(invoice, %{company_phone: company_phone} = invoice_struct, products_struct) do
     invoice <> "<ComPhone>#{company_phone}</ComPhone>"
-    |> build(params |> Map.drop([:company_phone]))
+    |> build(invoice_struct |> Map.drop([:company_phone]), products_struct)
   end
 
-  defp build(invoice, %{company_bank_name: company_bank_name} = params) do
+  defp build(invoice, %{company_bank_name: company_bank_name} = invoice_struct, products_struct) do
     invoice <> "<ComBankName>#{company_bank_name}</ComBankName>"
-    |> build(params |> Map.drop([:company_bank_name]))
+    |> build(invoice_struct |> Map.drop([:company_bank_name]), products_struct)
   end
 
-  defp build(invoice, %{company_bank_no: company_bank_no} = params) do
+  defp build(invoice, %{company_bank_no: company_bank_no} = invoice_struct, products_struct) do
     invoice <> "<ComBankNo>#{company_bank_no}</ComBankNo>"
-    |> build(params |> Map.drop([:company_bank_no]))
+    |> build(invoice_struct |> Map.drop([:company_bank_no]), products_struct)
   end
 
-  defp build(invoice, %{gross_value: gross_value} = params) do
+  defp build(invoice, %{gross_value: gross_value} = invoice_struct, products_struct) do
     invoice <> "<GrossValue>#{gross_value}</GrossValue>"
-    |> build(params |> Map.drop([:gross_value]))
+    |> build(invoice_struct |> Map.drop([:gross_value]), products_struct)
   end
 
-  defp build(invoice, %{create_date: create_date} = params) do
+  defp build(invoice, %{create_date: create_date} = invoice_struct, products_struct) do
     invoice <> "<CreateDate>#{create_date}</CreateDate>"
-    |> build(params |> Map.drop([:create_date]))
+    |> build(invoice_struct |> Map.drop([:create_date]), products_struct)
   end
 
-  defp build(invoice, %{discount_rate: discount_rate} = params) do
+  defp build(invoice, %{discount_rate: discount_rate} = invoice_struct, products_struct) do
     invoice <> "<DiscountRate>#{discount_rate}</DiscountRate>"
-    |> build(params |> Map.drop([:discount_rate]))
+    |> build(invoice_struct |> Map.drop([:discount_rate]), products_struct)
   end
 
-  defp build(invoice, %{customer_status: customer_status} = params) do
+  defp build(invoice, %{customer_status: customer_status} = invoice_struct, products_struct) do
     invoice <> "<CusSignStatus>#{customer_status}</CusSignStatus>"
-    |> build(params |> Map.drop([:customer_status]))
+    |> build(invoice_struct |> Map.drop([:customer_status]), products_struct)
   end
 
-  defp build(invoice, %{create_by: create_by} = params) do
+  defp build(invoice, %{create_by: create_by} = invoice_struct, products_struct) do
     invoice <> "<CreateBy>#{create_by}</CreateBy>"
-    |> build(params |> Map.drop([:create_by]))
+    |> build(invoice_struct |> Map.drop([:create_by]), products_struct)
   end
 
-  defp build(invoice, %{publish_by: publish_by} = params) do
+  defp build(invoice, %{publish_by: publish_by} = invoice_struct, products_struct) do
     invoice <> "<PublishBy>#{publish_by}</PublishBy>"
-    |> build(params |> Map.drop([:publish_by]))
+    |> build(invoice_struct |> Map.drop([:publish_by]), products_struct)
   end
 
-  defp build(invoice, %{note: note} = params) do
+  defp build(invoice, %{note: note} = invoice_struct, products_struct) do
     invoice <> "<Note>#{note}</Note>"
-    |> build(params |> Map.drop([:note]))
+    |> build(invoice_struct |> Map.drop([:note]), products_struct)
   end
 
-  defp build(invoice, %{process_invoice_note: process_invoice_note} = params) do
+  defp build(invoice, %{process_invoice_note: process_invoice_note} = invoice_struct, products_struct) do
     invoice <> "<ProcessInvNote>#{process_invoice_note}</ProcessInvNote>"
-    |> build(params |> Map.drop([:process_invoice_note]))
+    |> build(invoice_struct |> Map.drop([:process_invoice_note]), products_struct)
   end
 
-  defp build(invoice, %{fkey: fkey} = params) do
+  defp build(invoice, %{fkey: fkey} = invoice_struct, products_struct) do
     invoice <> "<Fkey>#{fkey}</Fkey>"
-    |> build(params |> Map.drop([:fkey]))
+    |> build(invoice_struct |> Map.drop([:fkey]), products_struct)
   end
 
-  defp build(invoice, %{gross_value_non_tax: gross_value_non_tax} = params) do
+  defp build(invoice, %{gross_value_non_tax: gross_value_non_tax} = invoice_struct, products_struct) do
     invoice <> "<GrossValue_NonTax>#{gross_value_non_tax}</GrossValue_NonTax>"
-    |> build(params |> Map.drop([:gross_value_non_tax]))
+    |> build(invoice_struct |> Map.drop([:gross_value_non_tax]), products_struct)
   end
 
-  defp build(invoice, %{currency_unit: currency_unit} = params) do
+  defp build(invoice, %{currency_unit: currency_unit} = invoice_struct, products_struct) do
     invoice <> "<CurrencyUnit>#{currency_unit}</CurrencyUnit>"
-    |> build(params |> Map.drop([:currency_unit]))
+    |> build(invoice_struct |> Map.drop([:currency_unit]), products_struct)
   end
 
-  defp build(invoice, %{exchange_rate: exchange_rate} = params) do
+  defp build(invoice, %{exchange_rate: exchange_rate} = invoice_struct, products_struct) do
     invoice <> "<ExchangeRate>#{exchange_rate}</ExchangeRate>"
-    |> build(params |> Map.drop([:exchange_rate]))
+    |> build(invoice_struct |> Map.drop([:exchange_rate]), products_struct)
   end
 
-  defp build(invoice, %{converted_amount: converted_amount} = params) do
+  defp build(invoice, %{converted_amount: converted_amount} = invoice_struct, products_struct) do
     invoice <> "<ConvertedAmount>#{converted_amount}</ConvertedAmount>"
-    |> build(params |> Map.drop([:converted_amount]))
+    |> build(invoice_struct |> Map.drop([:converted_amount]), products_struct)
   end
 
-  defp build(invoice, %{extra_1: extra_1} = params) do
+  defp build(invoice, %{extra_1: extra_1} = invoice_struct, products_struct) do
     invoice <> "<Extra1>#{extra_1}</Extra1>"
-    |> build(params |> Map.drop([:extra_1]))
+    |> build(invoice_struct |> Map.drop([:extra_1]), products_struct)
   end
 
-  defp build(invoice, %{extra_2: extra_2} = params) do
+  defp build(invoice, %{extra_2: extra_2} = invoice_struct, products_struct) do
     invoice <> "<Extra2>#{extra_2}</Extra2>"
-    |> build(params |> Map.drop([:extra_2]))
+    |> build(invoice_struct |> Map.drop([:extra_2]), products_struct)
   end
 
-  defp build(invoice, %{sms_deliver: sms_deliver} = params) do
+  defp build(invoice, %{sms_deliver: sms_deliver} = invoice_struct, products_struct) do
     invoice <> "<SMSDeliver>#{sms_deliver}</SMSDeliver>"
-    |> build(params |> Map.drop([:sms_deliver]))
+    |> build(invoice_struct |> Map.drop([:sms_deliver]), products_struct)
   end
 
-  defp build(invoice, %{}) do
-    invoice <> "</Invoice></Inv></Invoices>"
+  defp build(invoice, %{} = invoice_struct, products_struct) when (invoice_struct |> map_size() == 0) do
+    invoice <> VnptInvoiceProductBuilder.build(products_struct) <> "</Invoice></Inv></Invoices>"
   end
 end
