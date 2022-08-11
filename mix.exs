@@ -21,7 +21,7 @@ defmodule VnptInvoice.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:soap, "~> 1.0"},
+      {:soap, "~> 1.1"},
       {:typed_struct, "~> 0.3.0"}
     ]
   end

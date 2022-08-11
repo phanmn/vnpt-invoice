@@ -78,9 +78,9 @@ defmodule VnptInvoiceProductBuilder do
     |> build(params |> Map.drop([:product_discount_amount]))
   end
 
-  defp build(invoice, %{product_is_sum: product_is_sum} = params) do
-    (invoice <> "<IsSum>#{product_is_sum}</IsSum>")
-    |> build(params |> Map.drop([:product_is_sum]))
+  defp build(invoice, %{product_is_sum: product_is_sum}) do
+    invoice <> "<IsSum>#{product_is_sum}</IsSum>"
+    #|> build(params |> Map.drop([:product_is_sum]))
   end
 
   # defp build(invoice, %{}) do
