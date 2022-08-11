@@ -11,25 +11,25 @@ defmodule VnptInvoiceTest do
       product_price: 10_000_000,
       product_amount: 10_000_000,
       product_total: 1,
-      product_vat_rate: 0.1,
+      product_vat_rate: 10,
       product_vat_amount: 1_000_000,
       product_is_sum: 1
     }]
 
     inv = %VnptInvoice.Invoice{
-      key: (for _ <- 1..12, into: "", do: <<Enum.concat([?0..?9, ?A..?Z]) |> Enum.random()>>),
-      customer_code: "6469456436123",
+      key: (for _ <- 1..10, into: "", do: <<Enum.concat([?0..?9, ?A..?Z]) |> Enum.random()>>),
+      customer_code: (for _ <- 1..12, into: "", do: <<(?0..?9) |> Enum.random()>>),
       customer_name: "Nguyen Truong Giang",
       customer_address: "35 Nguyen Hue",
       customer_phone: "0937828401",
       customer_tax_code: "19284129048192",
       payment_method: "banking",
       products: products,
-      total: 11_000_000,
-      vat_rate: 0.1,
+      total: 10_000_000,
+      vat_rate: 10,
       vat_amount: 1_000_000,
-      amount: 10_000_000,
-      amount_in_words: "Muoi trieu dong",
+      amount: 11_000_000,
+      amount_in_words: "Muoi mot trieu dong",
       payment_status: 1,
       email_deliver: "giang.nt41@gmail.com",
       company_name: "Viettel",
@@ -41,7 +41,7 @@ defmodule VnptInvoiceTest do
       company_bank_name: "Vietcombank",
       company_bank_no: "0123123123",
       create_date: "11/08/2022",
-      customer_status: "1",
+      customer_status: 1,
       create_by: "Nhan Vien A",
       publish_by: "Nhan Vien A",
       fkey: 141951258598124,
@@ -52,6 +52,8 @@ defmodule VnptInvoiceTest do
 
     xmlInvData = inv
     |> VnptInvoice.Invoice.to_xml()
+
+    xmlInvData |> Logger.error()
 
     username = "crystabayaservice"
     password = "Einv@oi@vn#pt20"

@@ -13,7 +13,7 @@ defmodule VnptInvoice.Invoice do
     field :products, List.t(), enforce: true
     field :total, integer(), enforce: true
     field :discount_amount, integer(), default: 0
-    field :vat_rate, integer(), default: 0
+    field :vat_rate, float(), default: 10
     field :vat_amount, integer(), default: 0
     field :amount, integer(), enforce: true
     field :amount_in_words, String.t(), default: ""
