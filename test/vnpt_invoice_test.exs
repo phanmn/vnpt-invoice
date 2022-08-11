@@ -9,11 +9,20 @@ defmodule VnptInvoiceTest do
       product_unit: "Room",
       product_quantity: 1,
       product_price: 10_000_000,
-      product_amount: 2_000_000,
       product_total: 10_000_000,
       product_vat_rate: 10,
       product_vat_amount: 1_000_000,
       product_is_sum: 0
+    },
+    %VnptInvoice.Invoice.Product{
+      product_name: "Khach san Muong Thanh",
+      product_unit: "Room",
+      product_quantity: 2,
+      product_price: 20_000_000,
+      product_total: 40_000_000,
+      product_vat_rate: 10,
+      product_vat_amount: 4_000_000,
+      product_is_sum: 1
     }]
 
     inv = %VnptInvoice.Invoice{
