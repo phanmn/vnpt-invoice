@@ -17,7 +17,7 @@ defmodule VnptInvoiceTest do
     }]
 
     inv = %VnptInvoice.Invoice{
-      key: "JVN2983RJNV19",
+      key: (for _ <- 1..12, into: "", do: <<Enum.concat([?0..?9, ?A..?Z]) |> Enum.random()>>),
       customer_code: "6469456436123",
       customer_name: "Nguyen Truong Giang",
       customer_address: "35 Nguyen Hue",
@@ -32,9 +32,9 @@ defmodule VnptInvoiceTest do
       amount_in_words: "Muoi trieu dong",
       payment_status: 1,
       email_deliver: "giang.nt41@gmail.com",
-      company_name: "Beowulf",
+      company_name: "Viettel",
       company_address: "35 Nguyen Hue",
-      company_tax_code: "1928571249812374",
+      company_tax_code: "192854654353452374",
       buyer: "Nguyen Truong Giang",
       name: "Nguyen Truong Giang",
       company_phone: "0937828401",
@@ -44,7 +44,7 @@ defmodule VnptInvoiceTest do
       customer_status: "1",
       create_by: "Nhan Vien A",
       publish_by: "Nhan Vien A",
-      fkey: 141928918598124,
+      fkey: 141951258598124,
       currency_unit: "VND",
       exchange_rate: 1.0,
       sms_deliver: "0937828401"
