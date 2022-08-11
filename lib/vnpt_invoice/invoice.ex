@@ -8,6 +8,8 @@ defmodule VnptInvoice.Invoice do
     field :customer_address, String.t(), enforce: true
     field :customer_phone, String.t(), enforce: true
     field :customer_tax_code, String.t(), enforce: true
+    field :customer_bank_no, String.t(), default: ""
+    field :customer_bank_name, String.t(), default: ""
     field :payment_method, String.t(), default: ""
     field :kind_of_service, integer(), default: nil
     field :products, List.t(), enforce: true

@@ -34,6 +34,16 @@ defmodule VnptInvoiceBuilder do
     |> build(invoice_struct |> Map.drop([:customer_tax_code]))
   end
 
+  defp build(invoice, %{customer_bank_no: customer_bank_no} = invoice_struct) do
+    invoice <> "<CusBankNo>#{customer_bank_no}</CusBankNo>"
+    |> build(invoice_struct |> Map.drop([:customer_bank_no]))
+  end
+
+  defp build(invoice, %{customer_bank_name: customer_bank_name} = invoice_struct) do
+    invoice <> "<CusBankName>#{customer_bank_name}</CusBankName>"
+    |> build(invoice_struct |> Map.drop([:customer_bank_name]))
+  end
+
   defp build(invoice, %{payment_method: payment_method} = invoice_struct) do
     invoice <> "<PaymentMethod>#{payment_method}</PaymentMethod>"
     |> build(invoice_struct |> Map.drop([:payment_method]))

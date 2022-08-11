@@ -9,20 +9,22 @@ defmodule VnptInvoiceTest do
       product_unit: "Room",
       product_quantity: 1,
       product_price: 10_000_000,
-      product_amount: 10_000_000,
-      product_total: 1,
+      product_amount: 2_000_000,
+      product_total: 10_000_000,
       product_vat_rate: 10,
       product_vat_amount: 1_000_000,
-      product_is_sum: 1
+      product_is_sum: 0
     }]
 
     inv = %VnptInvoice.Invoice{
       key: (for _ <- 1..10, into: "", do: <<Enum.concat([?0..?9, ?A..?Z]) |> Enum.random()>>),
       customer_code: (for _ <- 1..12, into: "", do: <<(?0..?9) |> Enum.random()>>),
       customer_name: "Nguyen Truong Giang",
-      customer_address: "35 Nguyen Hue",
-      customer_phone: "0937828401",
-      customer_tax_code: "19284129048192",
+      customer_address: "36 Nguyen Hue",
+      customer_phone: 0315212985,
+      customer_tax_code: "0317408140-201",
+      customer_bank_no: (for _ <- 1..10, into: "", do: <<(?0..?9) |> Enum.random()>>),
+      customer_bank_name: "MBBank",
       payment_method: "banking",
       products: products,
       total: 10_000_000,
@@ -33,13 +35,13 @@ defmodule VnptInvoiceTest do
       payment_status: 1,
       email_deliver: "giang.nt41@gmail.com",
       company_name: "Viettel",
-      company_address: "35 Nguyen Hue",
-      company_tax_code: "192854654353452374",
+      company_address: "37 Nguyen Hue",
+      company_tax_code: "1231231231",
       buyer: "Nguyen Truong Giang",
       name: "Nguyen Truong Giang",
       company_phone: "0937828401",
       company_bank_name: "Vietcombank",
-      company_bank_no: "0123123123",
+      company_bank_no: (for _ <- 1..10, into: "", do: <<(?0..?9) |> Enum.random()>>),
       create_date: "11/08/2022",
       customer_status: 1,
       create_by: "Nhan Vien A",
@@ -52,9 +54,6 @@ defmodule VnptInvoiceTest do
 
     xmlInvData = inv
     |> VnptInvoice.Invoice.to_xml()
-
-    xmlInvData |> Logger.error()
-
     username = "crystabayaservice"
     password = "Einv@oi@vn#pt20"
     action = "ImportInv"
@@ -64,12 +63,12 @@ defmodule VnptInvoiceTest do
     params = %{
       xmlInvData: xmlInvData,
       username: username,
-      password: password,
-      convert: 1
+      password: password
     }
 
     {:ok, response} = Soap.call(wsdl, action, params)
-    response |> Soap.Response.parse() |> Logger.error()
+    %{ImportInvResponse: %{ImportInvResult: result}} = response |> Soap.Response.parse()
+    assert result |> String.contains?("OK:")
 
   end
 end
