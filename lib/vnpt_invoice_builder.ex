@@ -13,267 +13,267 @@ defmodule VnptInvoiceBuilder do
     |>  Kernel.<>("</Invoices>")
   end
 
-  defp build(invoice, %{key: key} = invoice_list) do
-    invoice <> "<key>#{key}</key>" <> "<Invoice>"
-    |> build(invoice_list |> Map.drop([:key]))
+  defp build(xml, %{key: key} = invoice) do
+    xml <> "<key>#{key}</key>" <> "<Invoice>"
+    |> build(invoice |> Map.drop([:key]))
   end
 
-  defp build(invoice, %{customer_code: customer_code} = invoice_list) do
-    invoice <> "<CusCode>#{customer_code}</CusCode>"
-    |> build(invoice_list |> Map.drop([:customer_code]))
+  defp build(xml, %{customer_code: customer_code} = invoice) do
+    xml <> "<CusCode>#{customer_code}</CusCode>"
+    |> build(invoice |> Map.drop([:customer_code]))
   end
 
-  defp build(invoice, %{customer_name: customer_name} = invoice_list) do
-    invoice <> "<CusName>#{customer_name}</CusName>"
-    |> build(invoice_list |> Map.drop([:customer_name]))
+  defp build(xml, %{customer_name: customer_name} = invoice) do
+    xml <> "<CusName>#{customer_name}</CusName>"
+    |> build(invoice |> Map.drop([:customer_name]))
   end
 
-  defp build(invoice, %{customer_address: customer_address} = invoice_list) do
-    invoice <> "<CusAddress>#{customer_address}</CusAddress>"
-    |> build(invoice_list |> Map.drop([:customer_address]))
+  defp build(xml, %{customer_address: customer_address} = invoice) do
+    xml <> "<CusAddress>#{customer_address}</CusAddress>"
+    |> build(invoice |> Map.drop([:customer_address]))
   end
 
-  defp build(invoice, %{customer_phone: customer_phone} = invoice_list) do
-    invoice <> "<CusPhone>#{customer_phone}</CusPhone>"
-    |> build(invoice_list |> Map.drop([:customer_phone]))
+  defp build(xml, %{customer_phone: customer_phone} = invoice) do
+    xml <> "<CusPhone>#{customer_phone}</CusPhone>"
+    |> build(invoice |> Map.drop([:customer_phone]))
   end
 
-  defp build(invoice, %{customer_tax_code: customer_tax_code} = invoice_list) do
-    invoice <> "<CusTaxCode>#{customer_tax_code}</CusTaxCode>"
-    |> build(invoice_list |> Map.drop([:customer_tax_code]))
+  defp build(xml, %{customer_tax_code: customer_tax_code} = invoice) do
+    xml <> "<CusTaxCode>#{customer_tax_code}</CusTaxCode>"
+    |> build(invoice |> Map.drop([:customer_tax_code]))
   end
 
-  defp build(invoice, %{customer_bank_no: customer_bank_no} = invoice_list) do
-    invoice <> "<CusBankNo>#{customer_bank_no}</CusBankNo>"
-    |> build(invoice_list |> Map.drop([:customer_bank_no]))
+  defp build(xml, %{customer_bank_no: customer_bank_no} = invoice) do
+    xml <> "<CusBankNo>#{customer_bank_no}</CusBankNo>"
+    |> build(invoice |> Map.drop([:customer_bank_no]))
   end
 
-  defp build(invoice, %{customer_bank_name: customer_bank_name} = invoice_list) do
-    invoice <> "<CusBankName>#{customer_bank_name}</CusBankName>"
-    |> build(invoice_list |> Map.drop([:customer_bank_name]))
+  defp build(xml, %{customer_bank_name: customer_bank_name} = invoice) do
+    xml <> "<CusBankName>#{customer_bank_name}</CusBankName>"
+    |> build(invoice |> Map.drop([:customer_bank_name]))
   end
 
-  defp build(invoice, %{payment_method: payment_method} = invoice_list) do
-    invoice <> "<PaymentMethod>#{payment_method}</PaymentMethod>"
-    |> build(invoice_list |> Map.drop([:payment_method]))
+  defp build(xml, %{payment_method: payment_method} = invoice) do
+    xml <> "<PaymentMethod>#{payment_method}</PaymentMethod>"
+    |> build(invoice |> Map.drop([:payment_method]))
   end
 
-  defp build(invoice, %{kind_of_service: kind_of_service} = invoice_list) do
-    invoice <> "<KindOfService>#{kind_of_service}</KindOfService>"
-    |> build(invoice_list |> Map.drop([:kind_of_service]))
+  defp build(xml, %{kind_of_service: kind_of_service} = invoice) do
+    xml <> "<KindOfService>#{kind_of_service}</KindOfService>"
+    |> build(invoice |> Map.drop([:kind_of_service]))
   end
 
-  defp build(invoice, %{total: total} = invoice_list) do
-    invoice <> "<Total>#{total}</Total>"
-    |> build(invoice_list |> Map.drop([:total]))
+  defp build(xml, %{total: total} = invoice) do
+    xml <> "<Total>#{total}</Total>"
+    |> build(invoice |> Map.drop([:total]))
   end
 
-  defp build(invoice, %{discount_amount: discount_amount} = invoice_list) do
-    invoice <> "<DiscountAmount>#{discount_amount}</DiscountAmount>"
-    |> build(invoice_list |> Map.drop([:discount_amount]))
+  defp build(xml, %{discount_amount: discount_amount} = invoice) do
+    xml <> "<DiscountAmount>#{discount_amount}</DiscountAmount>"
+    |> build(invoice |> Map.drop([:discount_amount]))
   end
 
-  defp build(invoice, %{vat_rate: vat_rate} = invoice_list) do
-    invoice <> "<VATRate>#{vat_rate}</VATRate>"
-    |> build(invoice_list |> Map.drop([:vat_rate]))
+  defp build(xml, %{vat_rate: vat_rate} = invoice) do
+    xml <> "<VATRate>#{vat_rate}</VATRate>"
+    |> build(invoice |> Map.drop([:vat_rate]))
   end
 
-  defp build(invoice, %{vat_amount: vat_amount} = invoice_list) do
-    invoice <> "<VATAmount>#{vat_amount}</VATAmount>"
-    |> build(invoice_list |> Map.drop([:vat_amount]))
+  defp build(xml, %{vat_amount: vat_amount} = invoice) do
+    xml <> "<VATAmount>#{vat_amount}</VATAmount>"
+    |> build(invoice |> Map.drop([:vat_amount]))
   end
 
-  defp build(invoice, %{amount: amount} = invoice_list) do
-    invoice <> "<Amount>#{amount}</Amount>"
-    |> build(invoice_list |> Map.drop([:amount]))
+  defp build(xml, %{amount: amount} = invoice) do
+    xml <> "<Amount>#{amount}</Amount>"
+    |> build(invoice |> Map.drop([:amount]))
   end
 
-  defp build(invoice, %{amount_in_words: amount_in_words} = invoice_list) do
-    invoice <> "<AmountInWords>#{amount_in_words}</AmountInWords>"
-    |> build(invoice_list |> Map.drop([:amount_in_words]))
+  defp build(xml, %{amount_in_words: amount_in_words} = invoice) do
+    xml <> "<AmountInWords>#{amount_in_words}</AmountInWords>"
+    |> build(invoice |> Map.drop([:amount_in_words]))
   end
 
-  defp build(invoice, %{extra: extra} = invoice_list) do
-    invoice <> "<Extra>#{extra}</Extra>"
-    |> build(invoice_list |> Map.drop([:extra]))
+  defp build(xml, %{extra: extra} = invoice) do
+    xml <> "<Extra>#{extra}</Extra>"
+    |> build(invoice |> Map.drop([:extra]))
   end
 
-  defp build(invoice, %{arising_date: arising_date} = invoice_list) do
-    invoice <> "<Extra>#{arising_date}</Extra>"
-    |> build(invoice_list |> Map.drop([:arising_date]))
+  defp build(xml, %{arising_date: arising_date} = invoice) do
+    xml <> "<Extra>#{arising_date}</Extra>"
+    |> build(invoice |> Map.drop([:arising_date]))
   end
 
-  defp build(invoice, %{payment_status: payment_status} = invoice_list) do
-    invoice <> "<PaymentStatus>#{payment_status}</PaymentStatus>"
-    |> build(invoice_list |> Map.drop([:payment_status]))
+  defp build(xml, %{payment_status: payment_status} = invoice) do
+    xml <> "<PaymentStatus>#{payment_status}</PaymentStatus>"
+    |> build(invoice |> Map.drop([:payment_status]))
   end
 
-  defp build(invoice, %{email_deliver: email_deliver} = invoice_list) do
-    invoice <> "<EmailDeliver>#{email_deliver}</EmailDeliver>"
-    |> build(invoice_list |> Map.drop([:email_deliver]))
+  defp build(xml, %{email_deliver: email_deliver} = invoice) do
+    xml <> "<EmailDeliver>#{email_deliver}</EmailDeliver>"
+    |> build(invoice |> Map.drop([:email_deliver]))
   end
 
-  defp build(invoice, %{company_name: company_name} = invoice_list) do
-    invoice <> "<ComName>#{company_name}</ComName>"
-    |> build(invoice_list |> Map.drop([:company_name]))
+  defp build(xml, %{company_name: company_name} = invoice) do
+    xml <> "<ComName>#{company_name}</ComName>"
+    |> build(invoice |> Map.drop([:company_name]))
   end
 
-  defp build(invoice, %{company_address: company_address} = invoice_list) do
-    invoice <> "<ComAddress>#{company_address}</ComAddress>"
-    |> build(invoice_list |> Map.drop([:company_address]))
+  defp build(xml, %{company_address: company_address} = invoice) do
+    xml <> "<ComAddress>#{company_address}</ComAddress>"
+    |> build(invoice |> Map.drop([:company_address]))
   end
 
-  defp build(invoice, %{company_tax_code: company_tax_code} = invoice_list) do
-    invoice <> "<ComTaxCode>#{company_tax_code}</ComTaxCode>"
-    |> build(invoice_list |> Map.drop([:company_tax_code]))
+  defp build(xml, %{company_tax_code: company_tax_code} = invoice) do
+    xml <> "<ComTaxCode>#{company_tax_code}</ComTaxCode>"
+    |> build(invoice |> Map.drop([:company_tax_code]))
   end
 
-  defp build(invoice, %{company_fax: company_fax} = invoice_list) do
-    invoice <> "<ComFax>#{company_fax}</ComFax>"
-    |> build(invoice_list |> Map.drop([:company_fax]))
+  defp build(xml, %{company_fax: company_fax} = invoice) do
+    xml <> "<ComFax>#{company_fax}</ComFax>"
+    |> build(invoice |> Map.drop([:company_fax]))
   end
 
-  defp build(invoice, %{resource_code: resource_code} = invoice_list) do
-    invoice <> "<ResourceCode>#{resource_code}</ResourceCode>"
-    |> build(invoice_list |> Map.drop([:resource_code]))
+  defp build(xml, %{resource_code: resource_code} = invoice) do
+    xml <> "<ResourceCode>#{resource_code}</ResourceCode>"
+    |> build(invoice |> Map.drop([:resource_code]))
   end
 
-  defp build(invoice, %{gross_value_0: gross_value_0} = invoice_list) do
-    invoice <> "<GrossValue0>#{gross_value_0}</GrossValue0>"
-    |> build(invoice_list |> Map.drop([:gross_value_0]))
+  defp build(xml, %{gross_value_0: gross_value_0} = invoice) do
+    xml <> "<GrossValue0>#{gross_value_0}</GrossValue0>"
+    |> build(invoice |> Map.drop([:gross_value_0]))
   end
 
-  defp build(invoice, %{vat_amount_0: vat_amount_0} = invoice_list) do
-    invoice <> "<VatAmount0>#{vat_amount_0}</VatAmount0>"
-    |> build(invoice_list |> Map.drop([:vat_amount_0]))
+  defp build(xml, %{vat_amount_0: vat_amount_0} = invoice) do
+    xml <> "<VatAmount0>#{vat_amount_0}</VatAmount0>"
+    |> build(invoice |> Map.drop([:vat_amount_0]))
   end
 
-  defp build(invoice, %{gross_value_5: gross_value_5} = invoice_list) do
-    invoice <> "<GrossValue5>#{gross_value_5}</GrossValue5>"
-    |> build(invoice_list |> Map.drop([:gross_value_5]))
+  defp build(xml, %{gross_value_5: gross_value_5} = invoice) do
+    xml <> "<GrossValue5>#{gross_value_5}</GrossValue5>"
+    |> build(invoice |> Map.drop([:gross_value_5]))
   end
 
-  defp build(invoice, %{vat_amount_5: vat_amount_5} = invoice_list) do
-    invoice <> "<VatAmount5>#{vat_amount_5}</VatAmount5>"
-    |> build(invoice_list |> Map.drop([:vat_amount_5]))
+  defp build(xml, %{vat_amount_5: vat_amount_5} = invoice) do
+    xml <> "<VatAmount5>#{vat_amount_5}</VatAmount5>"
+    |> build(invoice |> Map.drop([:vat_amount_5]))
   end
 
-  defp build(invoice, %{gross_value_10: gross_value_10} = invoice_list) do
-    invoice <> "<GrossValue10>#{gross_value_10}</GrossValue10>"
-    |> build(invoice_list |> Map.drop([:gross_value_10]))
+  defp build(xml, %{gross_value_10: gross_value_10} = invoice) do
+    xml <> "<GrossValue10>#{gross_value_10}</GrossValue10>"
+    |> build(invoice |> Map.drop([:gross_value_10]))
   end
 
-  defp build(invoice, %{vat_amount_10: vat_amount_10} = invoice_list) do
-    invoice <> "<VatAmount10>#{vat_amount_10}</VatAmount10>"
-    |> build(invoice_list |> Map.drop([:vat_amount_10]))
+  defp build(xml, %{vat_amount_10: vat_amount_10} = invoice) do
+    xml <> "<VatAmount10>#{vat_amount_10}</VatAmount10>"
+    |> build(invoice |> Map.drop([:vat_amount_10]))
   end
 
-  defp build(invoice, %{buyer: buyer} = invoice_list) do
-    invoice <> "<Buyer>#{buyer}</Buyer>"
-    |> build(invoice_list |> Map.drop([:buyer]))
+  defp build(xml, %{buyer: buyer} = invoice) do
+    xml <> "<Buyer>#{buyer}</Buyer>"
+    |> build(invoice |> Map.drop([:buyer]))
   end
 
-  defp build(invoice, %{name: name} = invoice_list) do
-    invoice <> "<Name>#{name}</Name>"
-    |> build(invoice_list |> Map.drop([:name]))
+  defp build(xml, %{name: name} = invoice) do
+    xml <> "<Name>#{name}</Name>"
+    |> build(invoice |> Map.drop([:name]))
   end
 
-  defp build(invoice, %{company_phone: company_phone} = invoice_list) do
-    invoice <> "<ComPhone>#{company_phone}</ComPhone>"
-    |> build(invoice_list |> Map.drop([:company_phone]))
+  defp build(xml, %{company_phone: company_phone} = invoice) do
+    xml <> "<ComPhone>#{company_phone}</ComPhone>"
+    |> build(invoice |> Map.drop([:company_phone]))
   end
 
-  defp build(invoice, %{company_bank_name: company_bank_name} = invoice_list) do
-    invoice <> "<ComBankName>#{company_bank_name}</ComBankName>"
-    |> build(invoice_list |> Map.drop([:company_bank_name]))
+  defp build(xml, %{company_bank_name: company_bank_name} = invoice) do
+    xml <> "<ComBankName>#{company_bank_name}</ComBankName>"
+    |> build(invoice |> Map.drop([:company_bank_name]))
   end
 
-  defp build(invoice, %{company_bank_no: company_bank_no} = invoice_list) do
-    invoice <> "<ComBankNo>#{company_bank_no}</ComBankNo>"
-    |> build(invoice_list |> Map.drop([:company_bank_no]))
+  defp build(xml, %{company_bank_no: company_bank_no} = invoice) do
+    xml <> "<ComBankNo>#{company_bank_no}</ComBankNo>"
+    |> build(invoice |> Map.drop([:company_bank_no]))
   end
 
-  defp build(invoice, %{gross_value: gross_value} = invoice_list) do
-    invoice <> "<GrossValue>#{gross_value}</GrossValue>"
-    |> build(invoice_list |> Map.drop([:gross_value]))
+  defp build(xml, %{gross_value: gross_value} = invoice) do
+    xml <> "<GrossValue>#{gross_value}</GrossValue>"
+    |> build(invoice |> Map.drop([:gross_value]))
   end
 
-  defp build(invoice, %{create_date: create_date} = invoice_list) do
-    invoice <> "<CreateDate>#{create_date}</CreateDate>"
-    |> build(invoice_list |> Map.drop([:create_date]))
+  defp build(xml, %{create_date: create_date} = invoice) do
+    xml <> "<CreateDate>#{create_date}</CreateDate>"
+    |> build(invoice |> Map.drop([:create_date]))
   end
 
-  defp build(invoice, %{discount_rate: discount_rate} = invoice_list) do
-    invoice <> "<DiscountRate>#{discount_rate}</DiscountRate>"
-    |> build(invoice_list |> Map.drop([:discount_rate]))
+  defp build(xml, %{discount_rate: discount_rate} = invoice) do
+    xml <> "<DiscountRate>#{discount_rate}</DiscountRate>"
+    |> build(invoice |> Map.drop([:discount_rate]))
   end
 
-  defp build(invoice, %{customer_status: customer_status} = invoice_list) do
-    invoice <> "<CusSignStatus>#{customer_status}</CusSignStatus>"
-    |> build(invoice_list |> Map.drop([:customer_status]))
+  defp build(xml, %{customer_status: customer_status} = invoice) do
+    xml <> "<CusSignStatus>#{customer_status}</CusSignStatus>"
+    |> build(invoice |> Map.drop([:customer_status]))
   end
 
-  defp build(invoice, %{create_by: create_by} = invoice_list) do
-    invoice <> "<CreateBy>#{create_by}</CreateBy>"
-    |> build(invoice_list |> Map.drop([:create_by]))
+  defp build(xml, %{create_by: create_by} = invoice) do
+    xml <> "<CreateBy>#{create_by}</CreateBy>"
+    |> build(invoice |> Map.drop([:create_by]))
   end
 
-  defp build(invoice, %{publish_by: publish_by} = invoice_list) do
-    invoice <> "<PublishBy>#{publish_by}</PublishBy>"
-    |> build(invoice_list |> Map.drop([:publish_by]))
+  defp build(xml, %{publish_by: publish_by} = invoice) do
+    xml <> "<PublishBy>#{publish_by}</PublishBy>"
+    |> build(invoice |> Map.drop([:publish_by]))
   end
 
-  defp build(invoice, %{note: note} = invoice_list) do
-    invoice <> "<Note>#{note}</Note>"
-    |> build(invoice_list |> Map.drop([:note]))
+  defp build(xml, %{note: note} = invoice) do
+    xml <> "<Note>#{note}</Note>"
+    |> build(invoice |> Map.drop([:note]))
   end
 
-  defp build(invoice, %{process_invoice_note: process_invoice_note} = invoice_list) do
-    invoice <> "<ProcessInvNote>#{process_invoice_note}</ProcessInvNote>"
-    |> build(invoice_list |> Map.drop([:process_invoice_note]))
+  defp build(xml, %{process_invoice_note: process_invoice_note} = invoice) do
+    xml <> "<ProcessInvNote>#{process_invoice_note}</ProcessInvNote>"
+    |> build(invoice |> Map.drop([:process_invoice_note]))
   end
 
-  defp build(invoice, %{fkey: fkey} = invoice_list) do
-    invoice <> "<Fkey>#{fkey}</Fkey>"
-    |> build(invoice_list |> Map.drop([:fkey]))
+  defp build(xml, %{fkey: fkey} = invoice) do
+    xml <> "<Fkey>#{fkey}</Fkey>"
+    |> build(invoice |> Map.drop([:fkey]))
   end
 
-  defp build(invoice, %{gross_value_non_tax: gross_value_non_tax} = invoice_list) do
-    invoice <> "<GrossValue_NonTax>#{gross_value_non_tax}</GrossValue_NonTax>"
-    |> build(invoice_list |> Map.drop([:gross_value_non_tax]))
+  defp build(xml, %{gross_value_non_tax: gross_value_non_tax} = invoice) do
+    xml <> "<GrossValue_NonTax>#{gross_value_non_tax}</GrossValue_NonTax>"
+    |> build(invoice |> Map.drop([:gross_value_non_tax]))
   end
 
-  defp build(invoice, %{currency_unit: currency_unit} = invoice_list) do
-    invoice <> "<CurrencyUnit>#{currency_unit}</CurrencyUnit>"
-    |> build(invoice_list |> Map.drop([:currency_unit]))
+  defp build(xml, %{currency_unit: currency_unit} = invoice) do
+    xml <> "<CurrencyUnit>#{currency_unit}</CurrencyUnit>"
+    |> build(invoice |> Map.drop([:currency_unit]))
   end
 
-  defp build(invoice, %{exchange_rate: exchange_rate} = invoice_list) do
-    invoice <> "<ExchangeRate>#{exchange_rate}</ExchangeRate>"
-    |> build(invoice_list |> Map.drop([:exchange_rate]))
+  defp build(xml, %{exchange_rate: exchange_rate} = invoice) do
+    xml <> "<ExchangeRate>#{exchange_rate}</ExchangeRate>"
+    |> build(invoice |> Map.drop([:exchange_rate]))
   end
 
-  defp build(invoice, %{converted_amount: converted_amount} = invoice_list) do
-    invoice <> "<ConvertedAmount>#{converted_amount}</ConvertedAmount>"
-    |> build(invoice_list |> Map.drop([:converted_amount]))
+  defp build(xml, %{converted_amount: converted_amount} = invoice) do
+    xml <> "<ConvertedAmount>#{converted_amount}</ConvertedAmount>"
+    |> build(invoice |> Map.drop([:converted_amount]))
   end
 
-  defp build(invoice, %{extra_1: extra_1} = invoice_list) do
-    invoice <> "<Extra1>#{extra_1}</Extra1>"
-    |> build(invoice_list |> Map.drop([:extra_1]))
+  defp build(xml, %{extra_1: extra_1} = invoice) do
+    xml <> "<Extra1>#{extra_1}</Extra1>"
+    |> build(invoice |> Map.drop([:extra_1]))
   end
 
-  defp build(invoice, %{extra_2: extra_2} = invoice_list) do
-    invoice <> "<Extra2>#{extra_2}</Extra2>"
-    |> build(invoice_list |> Map.drop([:extra_2]))
+  defp build(xml, %{extra_2: extra_2} = invoice) do
+    xml <> "<Extra2>#{extra_2}</Extra2>"
+    |> build(invoice |> Map.drop([:extra_2]))
   end
 
-  defp build(invoice, %{sms_deliver: sms_deliver} = invoice_list) do
-    invoice <> "<SMSDeliver>#{sms_deliver}</SMSDeliver>"
-    |> build(invoice_list |> Map.drop([:sms_deliver]))
+  defp build(xml, %{sms_deliver: sms_deliver} = invoice) do
+    xml <> "<SMSDeliver>#{sms_deliver}</SMSDeliver>"
+    |> build(invoice |> Map.drop([:sms_deliver]))
   end
 
-  defp build(invoice, %{products: products}) do
-    invoice <> VnptInvoiceProductBuilder.build(products) <> "</Invoice>"
+  defp build(xml, %{products: products}) do
+    xml <> VnptInvoiceProductBuilder.build(products) <> "</Invoice>"
   end
 end
