@@ -13,19 +13,23 @@ defmodule VnptInvoice.WebServices.PublishService do
     |> OK.wrap()
     ~>> then(fn
       %{ImportInvResponse: %{ImportInvResult: "OK:" <> v}} ->
-        [pattern, serial_key] =
+        [pattern, serial_keys] =
           v
           |> String.split(";")
 
-        [serial, key] =
-          serial_key
+        [serial, keys] =
+          serial_keys
           |> String.split("-")
+
+        keys =
+          keys
+          |> String.split(",")
 
         {:ok,
          %{
            pattern: pattern,
            serial: serial,
-           key: key
+           keys: keys
          }}
 
       v ->
