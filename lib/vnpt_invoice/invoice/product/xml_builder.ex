@@ -85,7 +85,7 @@ defmodule VnptInvoice.Invoice.Product.XmlBuilder do
     |> build(product |> Map.drop([:product_is_sum]))
   end
 
-  defp build(xml, %{}) do
+  defp build(xml, _) do
     xml
   end
 end
