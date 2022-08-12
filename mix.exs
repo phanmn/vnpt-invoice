@@ -22,7 +22,8 @@ defmodule VnptInvoice.MixProject do
   defp deps do
     [
       {:soap, "~> 1.1"},
-      {:typed_struct, "~> 0.3.0"}
+      {:typed_struct, "~> 0.3.0"},
+      {:ok, "~> 2.3"},
     ]
   end
 end
