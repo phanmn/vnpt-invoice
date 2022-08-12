@@ -57,8 +57,8 @@ defmodule VnptInvoice.Invoice do
     field :sms_deliver, String.t(), default: ""
   end
 
-  def to_xml(invoice) do
-    invoice
+  def to_xml(invoices) do
+    invoices
     |> VnptInvoiceBuilder.build()
   end
 end
