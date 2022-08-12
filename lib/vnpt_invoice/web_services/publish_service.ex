@@ -1,11 +1,11 @@
 defmodule VnptInvoice.WebServices.PublishService do
   use OK.Pipe
 
-  @spec import_invoice(%VnptInvoice.Invoice{}) :: {:ok, :any} | {:error, :any}
-  def import_invoice(invoice = %VnptInvoice.Invoice{}) do
+  @spec import_invoice(List.t()) :: {:ok, :any} | {:error, :any}
+  def import_invoice(invoices) do
     init_soap()
     ~>> Soap.call("ImportInv", %{
-      xmlInvData: invoice |> VnptInvoice.Invoice.to_xml(),
+      xmlInvData: invoices |> VnptInvoice.Invoice.to_xml(),
       username: VnptInvoice.WebServices.Account.Configuration.get(:username),
       password: VnptInvoice.WebServices.Account.Configuration.get(:password)
     })

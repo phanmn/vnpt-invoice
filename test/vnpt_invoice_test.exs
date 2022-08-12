@@ -63,8 +63,46 @@ defmodule VnptInvoiceTest do
       sms_deliver: "0937828401"
     }
 
-    assert {:ok, _} =
-             invoice
+    invoice_2 = %VnptInvoice.Invoice{
+      key: for(_ <- 1..10, into: "", do: <<Enum.concat([?0..?9, ?A..?Z]) |> Enum.random()>>),
+      customer_code: for(_ <- 1..12, into: "", do: <<?0..?9 |> Enum.random()>>),
+      customer_name: "Nguyen Hoang Nam",
+      customer_address: "35 Nguyen Hue",
+      customer_phone: 0_315_212_985,
+      customer_tax_code: for(_ <- 1..10, into: "", do: <<?0..?9 |> Enum.random()>>),
+      customer_bank_no: for(_ <- 1..10, into: "", do: <<?0..?9 |> Enum.random()>>),
+      customer_bank_name: "MBBank",
+      payment_method: "banking",
+      products: products,
+      total: 50_000_000,
+      vat_rate: 10,
+      vat_amount: 5_000_000,
+      amount: 55_000_000,
+      amount_in_words: "Nam muoi lam trieu dong",
+      payment_status: 1,
+      email_deliver: "nguyehoangnamdev@gmail.com",
+      company_name: "Beowulf",
+      company_address: "37 Nguyen Hue",
+      company_tax_code: "1231231231",
+      buyer: "Nguyen Hoang Nam",
+      name: "Nhan Vien B",
+      company_phone: "0937828401",
+      company_bank_name: "Vietcombank",
+      company_bank_no: for(_ <- 1..10, into: "", do: <<?0..?9 |> Enum.random()>>),
+      create_date: "11/08/2022",
+      customer_status: 1,
+      create_by: "Nhan Vien A",
+      publish_by: "Nhan Vien A",
+      fkey: 141_951_258_598_124,
+      currency_unit: "VND",
+      exchange_rate: 1.0,
+      sms_deliver: "0937828401"
+    }
+
+    assert {:ok, v} =
+             [invoice, invoice_2]
              |> VnptInvoice.WebServices.PublishService.import_invoice()
+    v |> inspect() |> Logger.error()
+    #[invoice, invoice_2] |> VnptInvoice.Invoice.to_xml() |> Logger.error()
   end
 end
