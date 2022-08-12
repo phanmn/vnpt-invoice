@@ -10,19 +10,27 @@ defmodule VnptInvoice.WebServices.PublishService do
       password: VnptInvoice.WebServices.Account.Configuration.get(:password)
     })
     ~>> Soap.Response.parse()
+    |> OK.wrap()
     ~>> then(fn
-      %{ImportInvResponse: %{ImportInvResult: result}} = v ->
-        result
-        |> String.contains?("OK:")
-        |> case do
-          false -> {:ok, v}
-          _ -> {:error, v}
-        end
+      %{ImportInvResponse: %{ImportInvResult: "OK:" <> v}} ->
+        [pattern, serial_key] =
+          v
+          |> String.split(";")
+
+        [serial, key] =
+          serial_key
+          |> String.split("-")
+
+        {:ok,
+         %{
+           pattern: pattern,
+           serial: serial,
+           key: key
+         }}
 
       v ->
         {:error, v}
     end)
-    |> OK.wrap()
   end
 
   defp init_soap() do
