@@ -3,7 +3,7 @@ defmodule VnptInvoice.Invoice do
 
   typedstruct do
     field :key, String.t(), enforce: true
-    field :customer_code, integer(), enforce: true
+    field :customer_code, integer()
     field :customer_name, String.t(), enforce: true
     field :customer_address, String.t(), enforce: true
     field :customer_phone, String.t(), enforce: true
@@ -23,9 +23,9 @@ defmodule VnptInvoice.Invoice do
     field :arising_date, Date.t(), default: ""
     field :payment_status, integer(), enforce: true
     field :email_deliver, String.t(), enforce: true
-    field :company_name, String.t(), enforce: true
-    field :company_address, String.t(), enforce: true
-    field :company_tax_code, String.t(), enforce: true
+    field :company_name, String.t()
+    field :company_address, String.t()
+    field :company_tax_code, String.t()
     field :company_fax, String.t(), default: ""
     field :resource_code, integer(), default: nil
     field :gross_value_0, integer(), default: nil
