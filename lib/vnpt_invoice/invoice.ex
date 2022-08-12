@@ -42,7 +42,7 @@ defmodule VnptInvoice.Invoice do
     field :gross_value, integer(), default: nil
     field :create_date, Date.t(), default: ""
     field :discount_rate, integer(), default: 0
-    field :customer_status, String.t(), enforce: true
+    field :customer_status, String.t()
     field :create_by, String.t(), default: ""
     field :publish_by, String.t(), default: ""
     field :note, String.t(), default: ""
