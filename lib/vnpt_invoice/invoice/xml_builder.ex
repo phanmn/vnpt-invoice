@@ -276,6 +276,6 @@ defmodule VnptInvoice.Invoice.XmlBuilder do
   end
 
   defp build(xml, %{products: products}) do
-    xml <> VnptInvoiceProductBuilder.build(products) <> "</Invoice>"
+    xml <> VnptInvoice.Invoice.Product.XmlBuilder.build(products) <> "</Invoice>"
   end
 end

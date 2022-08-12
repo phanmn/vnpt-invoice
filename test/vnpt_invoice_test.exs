@@ -69,7 +69,7 @@ defmodule VnptInvoiceTest do
       customer_name: "Nguyen Hoang Nam",
       customer_address: "35 Nguyen Hue",
       customer_phone: 0_315_212_985,
-      customer_tax_code: for(_ <- 1..10, into: "", do: <<?0..?9 |> Enum.random()>>),
+      customer_tax_code: "0317408140",
       customer_bank_no: for(_ <- 1..10, into: "", do: <<?0..?9 |> Enum.random()>>),
       customer_bank_name: "MBBank",
       payment_method: "banking",
@@ -103,6 +103,5 @@ defmodule VnptInvoiceTest do
              [invoice, invoice_2]
              |> VnptInvoice.WebServices.PublishService.import_invoice()
     v |> inspect() |> Logger.error()
-    #[invoice, invoice_2] |> VnptInvoice.Invoice.to_xml() |> Logger.error()
   end
 end

@@ -5,7 +5,7 @@ defmodule VnptInvoice.WebServices.PublishService do
   def import_invoice(invoices) do
     init_soap()
     ~>> Soap.call("ImportInv", %{
-      xmlInvData: invoices |> VnptInvoice.Invoice.to_xml(),
+      xmlInvData: invoices |> VnptInvoice.Invoice.XmlBuilder.build(),
       username: VnptInvoice.WebServices.Account.Configuration.get(:username),
       password: VnptInvoice.WebServices.Account.Configuration.get(:password)
     })
