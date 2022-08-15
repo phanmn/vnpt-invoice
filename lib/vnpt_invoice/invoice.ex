@@ -18,7 +18,7 @@ defmodule VnptInvoice.Invoice do
     field :vat_rate, float(), default: 10
     field :vat_amount, integer(), default: 0
     field :amount, integer(), enforce: true
-    field :amount_in_words, String.t(), default: ""
+    field :amount_in_words, String.t(), enforce: true
     #field :extra, String.t(), default: ""
     field :arising_date, Date.t(), default: ""
     field :payment_status, integer(), enforce: true
