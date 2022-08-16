@@ -1,5 +1,6 @@
 defmodule VnptInvoice.WebServices.PublishService do
   use OK.Pipe
+  require Logger
 
   @spec import_invoice(List.t()) :: {:ok, :any} | {:error, :any}
   def import_invoice(invoices) do
@@ -30,6 +31,58 @@ defmodule VnptInvoice.WebServices.PublishService do
            pattern: pattern,
            serial: serial,
            keys: keys
+         }}
+
+      v ->
+        {:error, v}
+    end)
+  end
+
+  def import_publish_invoice(invoices) do
+    init_soap()
+    ~>> Soap.call("ImportAndPublishInv", %{
+      xmlInvData: invoices |> VnptInvoice.Invoice.XmlBuilder.build(),
+      username: VnptInvoice.WebServices.Account.Configuration.get(:username),
+      password: VnptInvoice.WebServices.Account.Configuration.get(:password),
+      Account: VnptInvoice.WebServices.Account.Configuration.get(:admin_username),
+      ACpass: VnptInvoice.WebServices.Account.Configuration.get(:admin_password)
+    })
+    ~>> Soap.Response.parse()
+    |> OK.wrap()
+    ~>> then(fn
+      %{ImportAndPublishInvResponse: %{ImportAndPublishInvResult: "OK:" <> v}} ->
+        [pattern, serial_keys] =
+          v
+          |> String.split(";")
+
+        [serial, keys] =
+          serial_keys
+          |> String.split("-")
+
+        keys =
+          keys
+          |> String.split(",")
+
+        %{keys: keys, invoice_numbers: invoice_numbers} =
+        keys
+        |> Enum.map(fn key_inv_number ->
+          key_inv_number
+          |> String.split("_")
+        end)
+        |> Enum.reduce(%{keys: [], invoice_numbers: []}, fn [key, invoice_number], acc ->
+          keys = [key | acc.keys]
+          invoice_numbers = [invoice_number | acc.invoice_numbers]
+          %{keys: keys |> Enum.reverse(), invoice_numbers: invoice_numbers |> Enum.reverse()}
+        end)
+        # |> inspect()
+        # |> Logger.error()
+
+        {:ok,
+         %{
+           pattern: pattern,
+           serial: serial,
+           keys: keys,
+          invoice_numbesr: invoice_numbers
          }}
 
       v ->

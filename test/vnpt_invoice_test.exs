@@ -98,11 +98,11 @@ defmodule VnptInvoiceTest do
 
     assert {:ok, v} =
              [invoice, invoice_2]
-             |> VnptInvoice.WebServices.PublishService.import_invoice()
+             |> VnptInvoice.WebServices.PublishService.import_publish_invoice()
 
     v |> inspect() |> Logger.error()
 
-    assert {:ok, true} =
-             "WDUOVGDKQL" |> VnptInvoice.WebServices.BusinessService.cancel_invoice()
+    # assert {:ok, true} =
+    #          "WDUOVGDKQL" |> VnptInvoice.WebServices.BusinessService.cancel_invoice()
   end
 end
