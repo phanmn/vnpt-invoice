@@ -31,7 +31,7 @@ defmodule VnptInvoice.Invoice.Product.XmlBuilder do
   end
 
   defp build(xml, %{product_price: product_price} = product) do
-    (xml <> "<ProdPrice>#{product_price}</ProdPrice>")
+    (xml <> "<ProdPrice>#{product_price |> VnptInvoice.Number.to_string()}</ProdPrice>")
     |> build(product |> Map.drop([:product_price]))
   end
 
@@ -56,7 +56,7 @@ defmodule VnptInvoice.Invoice.Product.XmlBuilder do
   end
 
   defp build(xml, %{product_vat_amount: product_vat_amount} = product) do
-    (xml <> "<VATAmount>#{product_vat_amount}</VATAmount>")
+    (xml <> "<VATAmount>#{product_vat_amount |> VnptInvoice.Number.to_string()}</VATAmount>")
     |> build(product |> Map.drop([:product_vat_amount]))
   end
 
@@ -71,7 +71,7 @@ defmodule VnptInvoice.Invoice.Product.XmlBuilder do
   end
 
   defp build(xml, %{product_discount: product_discount} = product) do
-    (xml <> "<Discount>#{product_discount}</Discount>")
+    (xml <> "<Discount>#{product_discount |> VnptInvoice.Number.to_string()}</Discount>")
     |> build(product |> Map.drop([:product_discount]))
   end
 

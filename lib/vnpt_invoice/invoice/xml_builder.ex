@@ -66,27 +66,27 @@ defmodule VnptInvoice.Invoice.XmlBuilder do
   end
 
   defp build(xml, %{total: total} = invoice) do
-    (xml <> "<Total>#{total}</Total>")
+    (xml <> "<Total>#{total |> VnptInvoice.Number.to_string()}</Total>")
     |> build(invoice |> Map.drop([:total]))
   end
 
   defp build(xml, %{discount_amount: discount_amount} = invoice) do
-    (xml <> "<DiscountAmount>#{discount_amount}</DiscountAmount>")
+    (xml <> "<DiscountAmount>#{discount_amount |> VnptInvoice.Number.to_string()}</DiscountAmount>")
     |> build(invoice |> Map.drop([:discount_amount]))
   end
 
   defp build(xml, %{vat_rate: vat_rate} = invoice) do
-    (xml <> "<VATRate>#{vat_rate}</VATRate>")
+    (xml <> "<VATRate>#{vat_rate |> VnptInvoice.Number.to_string()}</VATRate>")
     |> build(invoice |> Map.drop([:vat_rate]))
   end
 
   defp build(xml, %{vat_amount: vat_amount} = invoice) do
-    (xml <> "<VATAmount>#{vat_amount}</VATAmount>")
+    (xml <> "<VATAmount>#{vat_amount |> VnptInvoice.Number.to_string()}</VATAmount>")
     |> build(invoice |> Map.drop([:vat_amount]))
   end
 
   defp build(xml, %{amount: amount} = invoice) do
-    (xml <> "<Amount>#{amount}</Amount>")
+    (xml <> "<Amount>#{amount |> VnptInvoice.Number.to_string()}</Amount>")
     |> build(invoice |> Map.drop([:amount]))
   end
 
@@ -141,32 +141,32 @@ defmodule VnptInvoice.Invoice.XmlBuilder do
   end
 
   defp build(xml, %{gross_value_0: gross_value_0} = invoice) do
-    (xml <> "<GrossValue0>#{gross_value_0}</GrossValue0>")
+    (xml <> "<GrossValue0>#{gross_value_0 |> VnptInvoice.Number.to_string()}</GrossValue0>")
     |> build(invoice |> Map.drop([:gross_value_0]))
   end
 
   defp build(xml, %{vat_amount_0: vat_amount_0} = invoice) do
-    (xml <> "<VatAmount0>#{vat_amount_0}</VatAmount0>")
+    (xml <> "<VatAmount0>#{vat_amount_0 |> VnptInvoice.Number.to_string()}</VatAmount0>")
     |> build(invoice |> Map.drop([:vat_amount_0]))
   end
 
   defp build(xml, %{gross_value_5: gross_value_5} = invoice) do
-    (xml <> "<GrossValue5>#{gross_value_5}</GrossValue5>")
+    (xml <> "<GrossValue5>#{gross_value_5 |> VnptInvoice.Number.to_string()}</GrossValue5>")
     |> build(invoice |> Map.drop([:gross_value_5]))
   end
 
   defp build(xml, %{vat_amount_5: vat_amount_5} = invoice) do
-    (xml <> "<VatAmount5>#{vat_amount_5}</VatAmount5>")
+    (xml <> "<VatAmount5>#{vat_amount_5 |> VnptInvoice.Number.to_string()}</VatAmount5>")
     |> build(invoice |> Map.drop([:vat_amount_5]))
   end
 
   defp build(xml, %{gross_value_10: gross_value_10} = invoice) do
-    (xml <> "<GrossValue10>#{gross_value_10}</GrossValue10>")
+    (xml <> "<GrossValue10>#{gross_value_10 |> VnptInvoice.Number.to_string()}</GrossValue10>")
     |> build(invoice |> Map.drop([:gross_value_10]))
   end
 
   defp build(xml, %{vat_amount_10: vat_amount_10} = invoice) do
-    (xml <> "<VatAmount10>#{vat_amount_10}</VatAmount10>")
+    (xml <> "<VatAmount10>#{vat_amount_10 |> VnptInvoice.Number.to_string()}</VatAmount10>")
     |> build(invoice |> Map.drop([:vat_amount_10]))
   end
 
@@ -206,7 +206,7 @@ defmodule VnptInvoice.Invoice.XmlBuilder do
   end
 
   defp build(xml, %{discount_rate: discount_rate} = invoice) do
-    (xml <> "<DiscountRate>#{discount_rate}</DiscountRate>")
+    (xml <> "<DiscountRate>#{discount_rate |> VnptInvoice.Number.to_string()}</DiscountRate>")
     |> build(invoice |> Map.drop([:discount_rate]))
   end
 
@@ -251,12 +251,12 @@ defmodule VnptInvoice.Invoice.XmlBuilder do
   end
 
   defp build(xml, %{exchange_rate: exchange_rate} = invoice) do
-    (xml <> "<ExchangeRate>#{exchange_rate}</ExchangeRate>")
+    (xml <> "<ExchangeRate>#{exchange_rate |> VnptInvoice.Number.to_string()}</ExchangeRate>")
     |> build(invoice |> Map.drop([:exchange_rate]))
   end
 
   defp build(xml, %{converted_amount: converted_amount} = invoice) do
-    (xml <> "<ConvertedAmount>#{converted_amount}</ConvertedAmount>")
+    (xml <> "<ConvertedAmount>#{converted_amount |> VnptInvoice.Number.to_string()}</ConvertedAmount>")
     |> build(invoice |> Map.drop([:converted_amount]))
   end
 
