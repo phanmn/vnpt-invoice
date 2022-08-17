@@ -82,7 +82,7 @@ defmodule VnptInvoice.WebServices.PublishService do
            pattern: pattern,
            serial: serial,
            keys: keys,
-          invoice_numbesr: invoice_numbers
+          invoice_numbers: invoice_numbers
          }}
 
       v ->

@@ -56,4 +56,9 @@ defmodule VnptInvoice.Invoice do
     field :extra_2, String.t(), default: ""
     field :sms_deliver, String.t(), default: ""
   end
+
+  @spec validate_tax_code(binary) :: boolean
+  def validate_tax_code(tax_code) do
+    String.match?(tax_code, ~r/(^\d{10}$)|(^\d{10}(\-\d{3})*$)/)
+  end
 end
