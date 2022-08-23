@@ -24,6 +24,6 @@ defmodule VnptInvoice.WebServices.BusinessService do
 
   defp init_soap() do
     VnptInvoice.WebServices.BusinessService.Configuration.get(:url)
-    |> Soap.init_model(:url)
+    |> Soap.init_model(:url, recv_timeout: 30_000)
   end
 end

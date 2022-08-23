@@ -64,16 +64,17 @@ defmodule VnptInvoice.WebServices.PublishService do
           |> String.split(",")
 
         %{keys: keys, invoice_numbers: invoice_numbers} =
-        keys
-        |> Enum.map(fn key_inv_number ->
-          key_inv_number
-          |> String.split("_")
-        end)
-        |> Enum.reduce(%{keys: [], invoice_numbers: []}, fn [key, invoice_number], acc ->
-          keys = [key | acc.keys]
-          invoice_numbers = [invoice_number | acc.invoice_numbers]
-          %{keys: keys |> Enum.reverse(), invoice_numbers: invoice_numbers |> Enum.reverse()}
-        end)
+          keys
+          |> Enum.map(fn key_inv_number ->
+            key_inv_number
+            |> String.split("_")
+          end)
+          |> Enum.reduce(%{keys: [], invoice_numbers: []}, fn [key, invoice_number], acc ->
+            keys = [key | acc.keys]
+            invoice_numbers = [invoice_number | acc.invoice_numbers]
+            %{keys: keys |> Enum.reverse(), invoice_numbers: invoice_numbers |> Enum.reverse()}
+          end)
+
         # |> inspect()
         # |> Logger.error()
 
@@ -82,7 +83,7 @@ defmodule VnptInvoice.WebServices.PublishService do
            pattern: pattern,
            serial: serial,
            keys: keys,
-          invoice_numbers: invoice_numbers
+           invoice_numbers: invoice_numbers
          }}
 
       v ->
@@ -92,6 +93,6 @@ defmodule VnptInvoice.WebServices.PublishService do
 
   defp init_soap() do
     VnptInvoice.WebServices.PublishService.Configuration.get(:url)
-    |> Soap.init_model(:url)
+    |> Soap.init_model(:url, recv_timeout: 30_000)
   end
 end
