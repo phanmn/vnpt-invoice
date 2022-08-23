@@ -11,7 +11,7 @@ defmodule VnptInvoice.WebServices.PublishService do
       xmlInvData: invoices |> VnptInvoice.Invoice.XmlBuilder.build(),
       username: VnptInvoice.WebServices.Account.Configuration.get(:username),
       password: VnptInvoice.WebServices.Account.Configuration.get(:password)
-    })
+    }, [], recv_timeout: 30_000)
     ~>> Soap.Response.parse()
     |> OK.wrap()
     ~>> then(fn
@@ -48,7 +48,7 @@ defmodule VnptInvoice.WebServices.PublishService do
       password: VnptInvoice.WebServices.Account.Configuration.get(:password),
       Account: VnptInvoice.WebServices.Account.Configuration.get(:admin_username),
       ACpass: VnptInvoice.WebServices.Account.Configuration.get(:admin_password)
-    })
+    }, [], recv_timeout: 30_000)
     ~>> Soap.Response.parse()
     |> OK.wrap()
     ~>> then(fn
