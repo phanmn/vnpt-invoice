@@ -24,6 +24,7 @@ defmodule VnptInvoice.MixProject do
       {:soap, "~> 1.1"},
       {:typed_struct, "~> 0.3.0"},
       {:ok, "~> 2.3"},
+      {:memoize, git: "https://github.com/phanmn/memoize.git"},
     ]
   end
 end

@@ -1,5 +1,6 @@
 defmodule VnptInvoice.WebServices.BusinessService do
   use OK.Pipe
+  use Memoize
 
   @spec cancel_invoice(List.t()) :: {:ok, :any} | {:error, :any}
   def cancel_invoice(fkey) do
@@ -22,7 +23,7 @@ defmodule VnptInvoice.WebServices.BusinessService do
     end)
   end
 
-  defp init_soap() do
+  defmemop init_soap() do
     VnptInvoice.WebServices.BusinessService.Configuration.get(:url)
     |> Soap.init_model(:url, recv_timeout: 30_000)
   end

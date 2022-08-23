@@ -1,5 +1,7 @@
 defmodule VnptInvoice.WebServices.PublishService do
   use OK.Pipe
+  use Memoize
+
   require Logger
 
   @spec import_invoice(List.t()) :: {:ok, :any} | {:error, :any}
@@ -91,7 +93,7 @@ defmodule VnptInvoice.WebServices.PublishService do
     end)
   end
 
-  defp init_soap() do
+  defmemop init_soap() do
     VnptInvoice.WebServices.PublishService.Configuration.get(:url)
     |> Soap.init_model(:url, recv_timeout: 30_000)
   end
