@@ -23,7 +23,7 @@ defmodule VnptInvoice.WebServices.BusinessService do
     end)
   end
 
-  defmemop init_soap() do
+  defmemop init_soap(), expires_in: 60_000 do
     VnptInvoice.WebServices.BusinessService.Configuration.get(:url)
     |> Soap.init_model(:url, recv_timeout: 30_000)
   end
