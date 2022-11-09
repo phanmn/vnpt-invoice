@@ -18,7 +18,7 @@ defmodule VnptInvoice.WebServices.BusinessService do
       %{cancelInvNoPayResponse: %{cancelInvNoPayResult: "OK:"}} ->
         {:ok, true}
 
-        %{cancelInvNoPayResponse: %{cancelInvNoPayResult: v}} ->
+      %{cancelInvNoPayResponse: %{cancelInvNoPayResult: v}} ->
         {:error, v}
     end)
   end
