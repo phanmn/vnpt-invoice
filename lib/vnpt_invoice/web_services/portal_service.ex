@@ -3,7 +3,7 @@ defmodule VnptInvoice.WebServices.PortalService do
   use Memoize
   require Logger
 
-  def download_invoice(fkey, path_to_file \\ "./") do
+  def download_invoice(fkey) do
     init_soap()
     ~>> Soap.call("downloadInvPDFFkey", %{
       userName: VnptInvoice.WebServices.Account.Configuration.get(:username),
