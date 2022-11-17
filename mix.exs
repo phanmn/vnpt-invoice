@@ -25,6 +25,7 @@ defmodule VnptInvoice.MixProject do
       {:typed_struct, "~> 0.3.0"},
       {:ok, "~> 2.3"},
       {:memoize, git: "https://github.com/phanmn/memoize.git"},
+      {:elixir_xml_to_map, "~> 3.0"}
     ]
   end
 end

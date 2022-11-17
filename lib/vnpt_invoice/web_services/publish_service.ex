@@ -86,10 +86,38 @@ defmodule VnptInvoice.WebServices.PublishService do
            serial: serial,
            keys: keys,
            invoice_numbers: invoice_numbers
-         }}
+         }
+        }
 
       v ->
         {:error, v}
+    end)
+  end
+
+  def get_tax_authority_code(fkey) do
+    init_soap()
+    ~>> Soap.call("GetMCCQThueByFkeys", %{
+      username: VnptInvoice.WebServices.Account.Configuration.get(:username),
+      password: VnptInvoice.WebServices.Account.Configuration.get(:password),
+      Account: VnptInvoice.WebServices.Account.Configuration.get(:admin_username),
+      ACpass: VnptInvoice.WebServices.Account.Configuration.get(:admin_password),
+      fkeys: fkey,
+      pattern: "1/001"
+    }, [], recv_timeout: 30_000)
+    ~>> Soap.Response.parse()
+    |> OK.wrap()
+    ~>> then(fn
+      %{GetMCCQThueByFkeysResponse: %{GetMCCQThueByFkeysResult: "ERR:" <> error_code}} ->
+        {:error, error_code}
+
+      %{GetMCCQThueByFkeysResponse: %{GetMCCQThueByFkeysResult: v}} ->
+        v
+        |> Base.decode64!()
+        |> XmlToMap.naive_map()
+        |> Map.get("DSHDon")
+        |> Map.get("HDon")
+        |> Map.get("MCCQThue")
+        |> OK.success()
     end)
   end
 

@@ -5,7 +5,7 @@ defmodule VnptInvoice.WebServices.PortalService do
 
   def download_invoice(fkey) do
     init_soap()
-    ~>> Soap.call("downloadInvPDFFkeyNoPayError", %{
+    ~>> Soap.call("downloadInvPDFFkey", %{
       userName: VnptInvoice.WebServices.Account.Configuration.get(:username),
       userPass: VnptInvoice.WebServices.Account.Configuration.get(:password),
       fkey: fkey
@@ -13,10 +13,10 @@ defmodule VnptInvoice.WebServices.PortalService do
     ~>> Soap.Response.parse()
     |> OK.wrap()
     ~>> then(fn
-      %{downloadInvPDFFkeyNoPayErrorResponse: %{downloadInvPDFFkeyNoPayErrorResult: "ERR:" <> error_code}} ->
+      %{downloadInvPDFFkeyResponse: %{downloadInvPDFFkeyResult: "ERR:" <> error_code}} ->
         {:error, error_code}
 
-      %{downloadInvPDFFkeyNoPayErrorResponse: %{downloadInvPDFFkeyNoPayErrorResult: v}} ->
+      %{downloadInvPDFFkeyResponse: %{downloadInvPDFFkeyResult: v}} ->
         {:ok, v}
     end)
   end
