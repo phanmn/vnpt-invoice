@@ -94,7 +94,7 @@ defmodule VnptInvoice.WebServices.PublishService do
     end)
   end
 
-  def get_tax_authority_code(fkey) do
+  def tax_authority_code(fkey) do
     init_soap()
     ~>> Soap.call("GetMCCQThueByFkeys", %{
       username: VnptInvoice.WebServices.Account.Configuration.get(:username),
