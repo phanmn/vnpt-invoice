@@ -77,9 +77,6 @@ defmodule VnptInvoice.WebServices.PublishService do
             %{keys: keys |> Enum.reverse(), invoice_numbers: invoice_numbers |> Enum.reverse()}
           end)
 
-        # |> inspect()
-        # |> Logger.error()
-
         {:ok,
          %{
            pattern: pattern,
@@ -94,7 +91,7 @@ defmodule VnptInvoice.WebServices.PublishService do
     end)
   end
 
-  def tax_authority_code(fkey) do
+  defp invoice_detail(fkey) do
     init_soap()
     ~>> Soap.call("GetMCCQThueByFkeys", %{
       username: VnptInvoice.WebServices.Account.Configuration.get(:username),
@@ -116,9 +113,37 @@ defmodule VnptInvoice.WebServices.PublishService do
         |> XmlToMap.naive_map()
         |> Map.get("DSHDon")
         |> Map.get("HDon")
+        |> OK.success()
+      end)
+  end
+
+  def tax_authority_code(fkey) do
+    fkey
+    |> invoice_detail()
+    |> case do
+      {:ok, invoice} ->
+        invoice
         |> Map.get("MCCQThue")
         |> OK.success()
-    end)
+      e -> e
+    end
+  end
+
+  def invoice_status(fkey) do
+    fkey
+    |> invoice_detail()
+    |> case do
+      {:ok, invoice} ->
+        invoice
+        |> Map.get("TThai")
+        |> case do
+          "1" -> :issued
+          "2" -> :approved
+          "3" -> :canceled
+        end
+        |> OK.success()
+      e -> e
+    end
   end
 
   defmemop init_soap(), expires_in: 60_000 do
